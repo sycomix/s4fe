@@ -46,7 +46,7 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
     const { layout, position, scene } = sceneProps;
     const thisSceneIndex = scene.index
     const width = layout.initWidth
-    
+
     const scale = position.interpolate({
       inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
       outputRange: [4, 1, 1]
@@ -483,13 +483,21 @@ const HomeStack = createStackNavigator({
   },
 },
 {
-  cardStyle: { 
+  cardStyle: {
     backgroundColor: '#EEEEEE', //this is the backgroundColor for the app
   },
   transitionConfig,
 });
 
 const AppStack = createDrawerNavigator({
+      SignUp: {
+        screen: SignUpScreen,
+        navigationOptions: (navOpt) => ({
+          drawerLabel: ({focused}) => (
+              <Drawer focused={focused} screen="SignUp" title="Sign Up" />
+          ),
+        }),
+      },
     Onboarding: {
       screen: OnboardingScreen,
       navigationOptions: {

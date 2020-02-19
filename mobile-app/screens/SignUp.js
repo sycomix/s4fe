@@ -39,7 +39,7 @@ export default class SignUp extends React.Component {
         start={{ x: 0, y: 0 }}
         end={{ x: 0.25, y: 1.1 }}
         locations={[0.2, 1]}
-        colors={['#6C24AA', '#15002B']}
+        colors={['#EBA721', '#EBA721']}
         style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
         <Block flex middle>
           <KeyboardAvoidingView behavior="padding" enabled>
@@ -139,9 +139,9 @@ export default class SignUp extends React.Component {
                 <Button
                   shadowless
                   style={{ height: 48 }}
-                  color={materialTheme.COLORS.BUTTON_COLOR}
+                  color={materialTheme.COLORS.WHITE}
                 >
-                  SIGN UP
+                  START
                 </Button>
                 <Button color="transparent" shadowless onPress={() => navigation.navigate('SignIn')}>
                   <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>

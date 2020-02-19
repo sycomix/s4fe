@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94b4ceca-5ce0-4914-8adc-fce2066651a6" name="Default Changelist" comment="">
+    <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/mobile-app/utils/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/constants/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/constants/Theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +31,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/static/img" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -74,7 +81,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="94b4ceca-5ce0-4914-8adc-fce2066651a6" name="Default Changelist" comment="" />
+      <changelist id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="" />
       <created>1580200516448</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -87,7 +94,6 @@
       <workItem from="1582009824364" duration="1275000" />
       <workItem from="1582011706116" duration="402000" />
       <workItem from="1582012113826" duration="6169000" />
-      <workItem from="1582121615490" duration="1915000" />
     </task>
     <servers />
   </component>
@@ -155,9 +161,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="257" width="607" height="526" key="find.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582022379928" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1582021948833">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="670" y="255" width="672" height="687" key="search.everywhere.popup" timestamp="1582125372143">
+      <screen x="70" y="27" width="1850" height="1053" />
     </state>
+    <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582125372143" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582021948833" />
   </component>
 </project>
