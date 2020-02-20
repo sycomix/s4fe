@@ -7,8 +7,32 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 
-const { height, width } = Dimensions.get('window');
+import * as Facebook from 'expo-facebook';
 
+const { height, width } = Dimensions.get('window');
+async function logIn() {
+    try {
+        await Facebook.initializeAsync('315972705787761');
+        const {
+            type,
+            token,
+            expires,
+            permissions,
+            declinedPermissions,
+        } = await Facebook.logInWithReadPermissionsAsync({
+            permissions: ['public_profile'],
+        });
+        if (type === 'success') {
+            // Get the user's name using Facebook's Graph API
+            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+            Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+        } else {
+            // type === 'cancel'
+        }
+    } catch ({ message }) {
+        alert(`Facebook Login Error: ${message}`);
+    }
+}
 export default class PhoneNumber extends React.Component {
     state = {
         user: '-',
@@ -47,9 +71,11 @@ export default class PhoneNumber extends React.Component {
                             <Block row center space="between">
                                 <Text style={{
                                     color: 'white',
-                                    fontSize: 40,
-                                    fontWeight: 'bold'
-                                }}>Start Using S4FE
+                                    fontSize: 35,
+                                    fontWeight: 'bold',
+                                    padding: 20
+                                }}>
+                                    Start Using S4FE
                                 </Text>
                             </Block>
                             <Block row center space="between">
@@ -105,12 +131,13 @@ export default class PhoneNumber extends React.Component {
                                         iconSize={theme.SIZES.BASE * 1.625}
                                         icon="facebook"
                                         iconFamily="font-awesome"
-                                        onPress={() => Alert.alert('Not implemented')}
+                                        onPress={() => logIn()}
                                         color={theme.COLORS.FACEBOOK}
                                         shadowless
                                         iconColor={theme.COLORS.WHITE}
                                         style={styles.social}
                                     />
+
                                 </Block>
                                 <Block flex middle center>
                                     <Button
@@ -151,6 +178,7 @@ export default class PhoneNumber extends React.Component {
         );
     }
 }
+
 
 const styles = StyleSheet.create({
     signup: {

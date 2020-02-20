@@ -2,19 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/PrivacyPolicy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPrivacy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupUserInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/TermsAndContitions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/User/UserProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SocialSignup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mobile-app/utils/facebookLogin.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/constants/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/constants/Theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +31,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mobile-app/screens" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -102,7 +96,7 @@
       <workItem from="1582009824364" duration="1275000" />
       <workItem from="1582011706116" duration="402000" />
       <workItem from="1582012113826" duration="6169000" />
-      <workItem from="1582197603391" duration="52000" />
+      <workItem from="1582197603391" duration="9414000" />
     </task>
     <servers />
   </component>
@@ -166,15 +160,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="968" height="528" key="XDebugger.FullValuePopup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1580718113078" />
-    <state x="702" y="287" width="724" height="610" key="find.popup" timestamp="1582193005175">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state x="2576" y="267" width="752" height="626" key="find.popup" timestamp="1582212340815">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
+    <state x="2576" y="267" width="752" height="626" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582212340815" />
     <state x="702" y="287" width="724" height="610" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582193005175" />
     <state x="656" y="257" width="607" height="526" key="find.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582022379928" />
-    <state x="670" y="255" width="672" height="687" key="search.everywhere.popup" timestamp="1582197641168">
-      <screen x="70" y="27" width="1850" height="1053" />
+    <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup" timestamp="1582211945545">
+      <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582197641168" />
+    <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582211945545" />
+    <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582205478523" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582021948833" />
   </component>
 </project>
