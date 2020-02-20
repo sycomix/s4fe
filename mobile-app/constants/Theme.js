@@ -21,6 +21,8 @@ export default {
     BLOCK: '#E7E7E7',
     CAPTION: '#4A4A4A',
     WHITE: '#FFFFFF',
+    BLUE: '#216DB6',
+    BLUE_LIGHT: '#0F8ACB',
   },
   SIZES: {
     BLOCK_SHADOW_RADIUS: 2,

@@ -32,6 +32,17 @@ import PrivacyScreen from '../screens/Privacy';
 import AboutScreen from '../screens/About';
 import AgreementScreen from '../screens/Agreement';
 
+// Signup
+import PhoneNumberScreen from "../screens/SignUp/PhoneNumber";
+import PhoneVerificationCodeScreen from "../screens/SignUp/PhoneVerificationCode";
+import SignupEmailScreen from "../screens/SignUp/SignupEmail";
+import SignupPasswordScreen from "../screens/SignUp/SignupPassword";
+import SignupPrivacyScreen from "../screens/SignUp/SignupPrivacy";
+import SignupUserInfoScreen from "../screens/SignUp/SignupUserInfo";
+import PrivacyPolicyScreen from "../screens/PrivacyPolicy";
+import TermsAndConditionsScreen from "../screens/TermsAndContitions";
+import UserProfileScreen from "../screens/User/UserProfile";
+
 import Menu from './Menu';
 import { Header, Drawer } from '../components/';
 import { tabs } from '../constants/';
@@ -421,6 +432,60 @@ const NewCollectionStack = createStackNavigator({
 })
 
 const HomeStack = createStackNavigator({
+    PhoneNumber: {
+      screen: PhoneNumberScreen,
+      navigationOptions: ({navigation}) => ({
+        headerTransparent: true,
+      })
+    },
+    PhoneVerification: {
+      screen: PhoneVerificationCodeScreen,
+      navigationOptions: ({navigation}) => ({
+        headerTransparent: true,
+      })
+    },
+      SignupEmail: {
+        screen: SignupEmailScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      SignupPassword: {
+        screen: SignupPasswordScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      SignupPrivacy: {
+        screen: SignupPrivacyScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      SignupUserInfo: {
+        screen: SignupUserInfoScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      PrivacyPolicy: {
+        screen: PrivacyPolicyScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      TermsAndConditions: {
+        screen: TermsAndConditionsScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
+      UserProfile: {
+        screen: UserProfileScreen,
+        navigationOptions: ({navigation}) => ({
+          headerTransparent: true,
+        })
+      },
   Home: {
     screen: HomeScreen,
     navigationOptions: ({navigation}) => ({
@@ -490,14 +555,6 @@ const HomeStack = createStackNavigator({
 });
 
 const AppStack = createDrawerNavigator({
-      SignUp: {
-        screen: SignUpScreen,
-        navigationOptions: (navOpt) => ({
-          drawerLabel: ({focused}) => (
-              <Drawer focused={focused} screen="SignUp" title="Sign Up" />
-          ),
-        }),
-      },
     Onboarding: {
       screen: OnboardingScreen,
       navigationOptions: {
@@ -600,9 +657,9 @@ const Switch =  createSwitchNavigator(
     Home: HomeStack,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Home',
   }
 );
 
-const AppContainer = createAppContainer(AppStack);
+const AppContainer = createAppContainer(HomeStack);
 export default AppContainer;
