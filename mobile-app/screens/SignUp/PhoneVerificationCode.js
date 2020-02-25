@@ -10,26 +10,28 @@ import { HeaderHeight } from "../../constants/utils";
 const { height, width } = Dimensions.get('window');
 
 export default class PhoneNumber extends React.Component {
-    state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            phoneNumber: '',
+            firstCode: '',
+            secondCode: '',
+            thirdCode: '',
+            fourthCode: '',
         }
+        this.inputRef = React.createRef();
+        this.state.phoneNumber = this.props.navigation.getParam('phoneNumber')
+
     }
+
+    secondRef = ''
 
     handleChange = (name, value) => {
-        this.setState({ [name]: value });
+        this.setState({[name]: value });
+        console.log('state', this.state)
     }
-
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
-
-        this.setState({ active });
+    focus = () => {
+        this.inputRef.focus()
     }
 
     render() {
@@ -52,6 +54,7 @@ export default class PhoneNumber extends React.Component {
 
                                 }}>
                                     Please enter the 4-digit code sent to your number
+                                    {this.state.phoneNumber}
                                 </Text>
                             </Block>
 
@@ -70,9 +73,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     autoCapitalize="none"
                                     style={[styles.code]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    maxLength={1}
+                                    onChangeText={text => this.handleChange('firstCode', text)}
                                 />
                                 <Input
                                     type='number-pad'
@@ -82,9 +84,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     autoCapitalize="none"
                                     style={[styles.code]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    maxLength={1}
+                                    onChangeText={text => this.handleChange('secondCode', text)}
                                 />
                                 <Input
                                     type='number-pad'
@@ -94,9 +95,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     autoCapitalize="none"
                                     style={[styles.code]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    maxLength={1}
+                                    onChangeText={text => this.handleChange('thirdCode', text)}
                                 />
                                 <Input
                                     type='number-pad'
@@ -106,9 +106,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     autoCapitalize="none"
                                     style={[styles.code]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    maxLength={1}
+                                    onChangeText={text => this.handleChange('fourthCode', text)}
                                 />
 
 
@@ -119,7 +118,9 @@ export default class PhoneNumber extends React.Component {
                                     shadowless
                                     style={{ height: 48 }}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('SignupEmail')}
+                                    onPress={() => navigation.navigate('SignupEmail', {
+                                        phoneVerificationData: this.state
+                                    })}
                                 >
                                     <Text>SUBMIT</Text>
                                 </Button>
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
     },
     code: {
-        width: width * 0.1,
+        width: width * 0.13,
         borderRadius: 0,
         borderBottomWidth: 1,
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,

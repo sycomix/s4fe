@@ -8,6 +8,7 @@ export default {
     SUCCESS: '#4CAF50',
     WARNING: '#FF9800',
     MUTED: '#979797',
+    DISABLED: '#f0f0f0',
     INPUT: '#DCDCDC',
     ACTIVE: '#9C26B0',
     BUTTON_COLOR: '#EBA721',

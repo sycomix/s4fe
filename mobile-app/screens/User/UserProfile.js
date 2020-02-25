@@ -1,17 +1,27 @@
 import React from 'react';
 import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import {Block, Button, Text, theme} from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { Icon } from '../../components';
 import { Images, materialTheme } from '../../constants';
 import { HeaderHeight } from "../../constants/utils";
 
-const { width } = Dimensions.get('screen');
+const { height, width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
 
 export default class UserProfile extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userData: {}
+        }
+
+        this.state.userData = this.props.navigation.getParam('userData')
+    }
     render() {
+        const { navigation } = this.props;
+        console.log('state', this.state.userData)
         return (
             <Block flex style={styles.profile}>
                 <ImageBackground
@@ -20,21 +30,23 @@ export default class UserProfile extends React.Component {
                     imageStyle={styles.profileImage}>
                     <Block flex style={styles.profileDetails}>
                         <Block style={styles.profileTexts}>
-                            <Text color="white" size={28} style={{ paddingBottom: 8 }}>Rachel Brown</Text>
+                            <Text color="white" size={28} style={{ paddingBottom: 8 }}>
+                                {this.state.userData.first_name} {this.state.userData.last_name}
+                            </Text>
                             <Block row space="between">
                                 <Block row>
-                                    <Block middle style={styles.pro}>
-                                        <Text size={16} color="white">Pro</Text>
-                                    </Block>
-                                    <Text color="white" size={16} muted style={styles.seller}>Seller</Text>
-                                    <Text size={16} color={materialTheme.COLORS.WARNING}>
-                                        4.8 <Icon name="shape-star" family="GalioExtra" size={14} />
+                                    <Text color="white" size={16} muted style={styles.seller}>
+                                        <Icon name="envelope" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
+                                        {`  `} {this.state.userData.email}
                                     </Text>
+                                    {/*<Text size={16} color={materialTheme.COLORS.WARNING}>*/}
+                                    {/*    4.8 <Icon name="shape-star" family="GalioExtra" size={14} />*/}
+                                    {/*</Text>*/}
                                 </Block>
                                 <Block>
                                     <Text color={theme.COLORS.MUTED} size={16}>
-                                        <Icon name="map-marker" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                                        {`  `} Los Angeles, CA
+                                        <Icon name="phone" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
+                                        {`  `} {this.state.userData.phone_number}
                                     </Text>
                                 </Block>
                             </Block>
@@ -42,39 +54,52 @@ export default class UserProfile extends React.Component {
                         <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
                     </Block>
                 </ImageBackground>
-                <Block flex={0.7}>
-                    <Block style={styles.options}>
-                        <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
-                            <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
-                                <Block middle>
-                                    <Text bold size={12} style={{marginBottom: 8}}>36</Text>
-                                    <Text muted size={12}>Orders</Text>
-                                </Block>
-                                <Block middle>
-                                    <Text bold size={12} style={{marginBottom: 8}}>5</Text>
-                                    <Text muted size={12}>Bids & Offers</Text>
-                                </Block>
-                                <Block middle>
-                                    <Text bold size={12} style={{marginBottom: 8}}>2</Text>
-                                    <Text muted size={12}>Messages</Text>
-                                </Block>
-                            </Block>
-                            <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
-                                <Text size={16}>Recently viewed</Text>
-                                <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>
-                            </Block>
-                            <Block row space="between" style={{ flexWrap: 'wrap' }} >
-                                {Images.Viewed.map((img, imgIndex) => (
-                                    <Image
-                                        source={{ uri: img }}
-                                        key={`viewed-${img}`}
-                                        resizeMode="cover"
-                                        style={styles.thumb}
-                                    />
-                                ))}
-                            </Block>
-                        </ScrollView>
+                <Block flex={1}>
+
+                        <Block center style={styles.bottom}>
+                            <Button
+                                shadowless
+                                style={styles.button}
+                                color={materialTheme.COLORS.PRIMARY}
+                                onPress={() => navigation.navigate('PhoneNumber')}
+                            >
+                                <Text>SIGN OUT</Text>
+                            </Button>
+
                     </Block>
+
+                    {/*<Block style={styles.options}>*/}
+                    {/*    /!*<ScrollView vertical={true} showsVerticalScrollIndicator={false}>*!/*/}
+                    {/*    /!*    <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>*!/*/}
+                    {/*    /!*        <Block middle>*!/*/}
+                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>36</Text>*!/*/}
+                    {/*    /!*            <Text muted size={12}>Orders</Text>*!/*/}
+                    {/*    /!*        </Block>*!/*/}
+                    {/*    /!*        <Block middle>*!/*/}
+                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>5</Text>*!/*/}
+                    {/*    /!*            <Text muted size={12}>Bids & Offers</Text>*!/*/}
+                    {/*    /!*        </Block>*!/*/}
+                    {/*    /!*        <Block middle>*!/*/}
+                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>2</Text>*!/*/}
+                    {/*    /!*            <Text muted size={12}>Messages</Text>*!/*/}
+                    {/*    /!*        </Block>*!/*/}
+                    {/*    /!*    </Block>*!/*/}
+                    {/*    /!*    <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>*!/*/}
+                    {/*    /!*        <Text size={16}>Recently viewed</Text>*!/*/}
+                    {/*    /!*        <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>*!/*/}
+                    {/*    /!*    </Block>*!/*/}
+                    {/*    /!*    <Block row space="between" style={{ flexWrap: 'wrap' }} >*!/*/}
+                    {/*    /!*        {Images.Viewed.map((img, imgIndex) => (*!/*/}
+                    {/*    /!*            <Image*!/*/}
+                    {/*    /!*                source={{ uri: img }}*!/*/}
+                    {/*    /!*                key={`viewed-${img}`}*!/*/}
+                    {/*    /!*                resizeMode="cover"*!/*/}
+                    {/*    /!*                style={styles.thumb}*!/*/}
+                    {/*    /!*            />*!/*/}
+                    {/*    /!*        ))}*!/*/}
+                    {/*    /!*    </Block>*!/*/}
+                    {/*    /!*</ScrollView>*!/*/}
+                    {/*</Block>*/}
                 </Block>
             </Block>
         );
@@ -146,4 +171,14 @@ const styles = StyleSheet.create({
         height: '30%',
         position: 'absolute',
     },
+    button: {
+        position: 'absolute',
+        bottom: 0
+    },
+    bottom: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 36
+    }
+
 });

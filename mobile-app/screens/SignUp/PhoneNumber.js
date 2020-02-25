@@ -1,13 +1,16 @@
 import React from 'react';
-import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, Image } from 'react-native';
 
 import { Block, Button, Input, Text, theme } from 'galio-framework';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
-import { HeaderHeight } from "../../constants/utils";
-
+import { HeaderHeight } from "../../constants/utils"
+import Axios from 'axios';
+import {BASE_API} from '../../utils/api'
+import { Dropdown } from 'react-native-material-dropdown';
 import * as Facebook from 'expo-facebook';
+const countryTelData = require('country-telephone-data')
 
 const { height, width } = Dimensions.get('window');
 async function logIn() {
@@ -35,29 +38,56 @@ async function logIn() {
 }
 export default class PhoneNumber extends React.Component {
     state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
+        phoneNumber: '',
+        dataLoading: false,
+        countriesList: [],
+        selectedCountryCode: ''
+    }
+
+    componentDidMount() {
+        const countries = countryTelData.allCountries
+        console.log('countries', countries)
+        let result = []
+        countries.forEach(country => {
+            result.push({
+                value: country.dialCode,
+                label: `+${country.dialCode}`
+                // name: country.name
+            })
+        })
+        console.log('resu', result)
+        this.setState({countriesList: result})
+    }
+
+    handleChange = (value) => {
+        this.setState({phoneNumber: value });
+    }
+
+    // Phone verification
+    verifyPhone () {
+        this.setState({ dataLoading: true })
+        console.log('verify')
+        const formData = {
+            phone_number: this.state.phoneNumber
         }
-    }
-
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    }
-
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
-
-        this.setState({ active });
+        Axios.post(`${BASE_API}api/v1/get-otp`, formData)
+            .then(() => {
+                this.setState({ dataLoading: false })
+                this.props.navigation.navigate('PhoneVerification', {
+                    phoneNumber: this.state.phoneNumber
+                });
+            })
+            .catch(err => {
+                console.log(err.response)
+                this.setState({ dataLoading: false })
+                Alert.alert('Warning!', 'Something went wrong!')
+            })
     }
 
     render() {
         const { navigation } = this.props;
+
+        console.log('state', this.state.countriesList)
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -66,113 +96,108 @@ export default class PhoneNumber extends React.Component {
                 colors={['#EBA721', '#EBA721']}
                 style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
                 <Block flex middle>
-                    <KeyboardAvoidingView behavior="padding" enabled>
-                        <Block style={{ marginTop: height * 0.2 }}>
-                            <Block row center space="between">
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 35,
-                                    fontWeight: 'bold',
-                                    padding: 20
-                                }}>
-                                    Start Using S4FE
-                                </Text>
-                            </Block>
-                            <Block row center space="between">
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 22,
-                                }}>
-                                    Enter  your phone number
-                                </Text>
-                            </Block>
-                        </Block>
-
-
-                        {/* Phone number */}
-                        <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
-                            <Block center>
-                                <Input
-                                    type='number-pad'
-                                    bgColor='transparent'
-                                    placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                                    borderless
-                                    color="white"
-                                    placeholder="Phone number"
-                                    autoCapitalize="none"
-                                    style={[styles.input, this.state.active.user ? styles.inputActive : null]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
-                                />
-                            </Block>
-                            <Block flex top style={{ marginTop: 20 }}>
-                                <Button
-                                    shadowless
-                                    style={{ height: 48 }}
-                                    color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('PhoneVerification')}
-                                >
-                                    <Text>START</Text>
-                                </Button>
-                                <Button color="transparent" shadowless onPress={() => navigation.navigate('SignIn')}>
-                                    <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.75}>
-                                        Already have an account? Sign In
-                                    </Text>
-                                </Button>
-                            </Block>
-                        </Block>
-                        <Block style={{ marginBottom: height * 0.05 }}>
-                            <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 1.875 }}>
-                                <Block flex middle right>
-                                    <Button
-                                        round
-                                        onlyIcon
-                                        iconSize={theme.SIZES.BASE * 1.625}
-                                        icon="facebook"
-                                        iconFamily="font-awesome"
-                                        onPress={() => logIn()}
-                                        color={theme.COLORS.FACEBOOK}
-                                        shadowless
-                                        iconColor={theme.COLORS.WHITE}
-                                        style={styles.social}
-                                    />
-
-                                </Block>
-                                <Block flex middle center>
-                                    <Button
-                                        round
-                                        onlyIcon
-                                        iconSize={theme.SIZES.BASE * 1.625}
-                                        icon="twitter"
-                                        iconFamily="font-awesome"
-                                        onPress={() => Alert.alert('Not implemented')}
-                                        color={theme.COLORS.TWITTER}
-                                        shadowless
-                                        iconColor={theme.COLORS.WHITE}
-                                        style={styles.social}
-                                    />
-                                </Block>
-                                <Block flex middle left>
-                                    <Button
-                                        round
-                                        onlyIcon
-                                        iconSize={theme.SIZES.BASE * 1.625}
-                                        icon="dribbble"
-                                        iconFamily="font-awesome"
-                                        onPress={() => Alert.alert('Not implemented')}
-                                        color={theme.COLORS.DRIBBBLE}
-                                        shadowless
-                                        iconColor={theme.COLORS.WHITE}
-                                        style={styles.social}
-                                    />
-                                </Block>
-                            </Block>
-                            <Text color='#fff' center size={theme.SIZES.FONT * 0.875}>
-                                or be classical
+                    <Block style={{ marginTop: height * 0.2 }}>
+                        <Block row center space="between">
+                            <Text style={{
+                                color: 'white',
+                                fontSize: 35,
+                                fontWeight: 'bold',
+                                padding: 20
+                            }}>
+                                Start Using S4FE
                             </Text>
                         </Block>
-                    </KeyboardAvoidingView>
+                        <Block row center space="between">
+                            <Text style={{
+                                color: 'white',
+                                fontSize: 22,
+                            }}>
+                                Enter  your phone number
+                            </Text>
+                        </Block>
+                    </Block>
+
+
+                    {/* Phone number */}
+                    <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
+                        <Block style={{ flexDirection: 'row' }}>
+                            <Block style={[styles.countryInput]}>
+                                <Dropdown
+                                    label='C. Code'
+                                    data={this.state.countriesList}
+                                    baseColor='white'
+                                    value={this.state.selectedCountryCode}
+                                />
+
+
+                            </Block>
+
+                            <Input
+                                type='number-pad'
+                                bgColor='transparent'
+                                placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
+                                borderless
+                                color="white"
+                                placeholder="Phone number"
+                                autoCapitalize="none"
+                                style={[styles.phoneInput]}
+                                onChangeText={text => this.handleChange(text)}
+                            />
+                        </Block>
+
+                        <Block flex top style={{ marginTop: 20 }}>
+                            <Button
+                                disabled={this.dataLoading}
+                                shadowless
+                                style={{ height: 48 }}
+                                color={this.dataLoading ? materialTheme.COLORS.DISABLED : materialTheme.COLORS.WHITE}
+                                onPress={() => this.verifyPhone()}
+                            >
+                                <Text>START</Text>
+                            </Button>
+                            <Button color="transparent" shadowless onPress={() => navigation.navigate('Components')}>
+                                <Text center color={theme.COLORS.WHITE} size={theme.SIZES.FONT * 0.95}>
+                                    Already have an account? Sign In
+                                </Text>
+                            </Button>
+                        </Block>
+                    </Block>
+                    <Block style={{ marginBottom: height * 0.03 }}>
+                        <Text color='#fff' center size={theme.SIZES.FONT * 0.95}>
+                            or be classical
+                        </Text>
+                        <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 1.875 }}>
+                            <Block flex middle center>
+                                <Button
+                                    round
+                                    onlyIcon
+                                    iconSize={theme.SIZES.BASE * 1.625}
+                                    icon="facebook"
+                                    iconFamily="font-awesome"
+                                    onPress={() => logIn()}
+                                    color={theme.COLORS.FACEBOOK}
+                                    shadowless
+                                    iconColor={theme.COLORS.WHITE}
+                                    style={styles.social}
+                                />
+
+                            </Block>
+                            <Block flex middle center>
+                                <Button
+                                    round
+                                    onlyIcon
+                                    iconSize={theme.SIZES.BASE * 1.625}
+                                    icon="google"
+                                    iconFamily="font-awesome"
+                                    onPress={() => Alert.alert('Not implemented')}
+                                    color='#DB4437'
+                                    shadowless
+                                    iconColor={theme.COLORS.WHITE}
+                                    style={styles.social}
+                                />
+                            </Block>
+                        </Block>
+                    </Block>
                 </Block>
             </LinearGradient>
         );
@@ -203,7 +228,22 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
     },
+    countryInput: {
+        width: width * 0.20,
+        marginRight: 20,
+    },
+    phoneInput: {
+        width: width * 0.6,
+        borderRadius: 0,
+        borderBottomWidth: 1,
+        borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
+        marginTop: 10
+    },
     inputActive: {
         borderBottomColor: "white",
+    },
+    dropdown_6_image: {
+        width: 40,
+        height: 40,
     },
 });

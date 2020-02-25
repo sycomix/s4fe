@@ -10,29 +10,32 @@ import { HeaderHeight } from "../../constants/utils";
 const { height, width } = Dimensions.get('window');
 
 export default class PhoneNumber extends React.Component {
-    state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            userData: '',
+            firstName: '',
+            lastName: ''
         }
+        const userData =this.props.navigation.getParam('userData')
+        this.state.userData = {userData}
+
     }
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
+        console.log('ime i preziem', this.state)
     }
 
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
-
-        this.setState({ active });
+    goToScreen(screen) {
+        console.log('state iz info', this.state)
+        this.props.navigation.navigate(screen, {
+            userData: this.state
+        })
     }
 
     render() {
+        console.log('this.state', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient
@@ -65,10 +68,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     placeholder="First name"
                                     autoCapitalize="none"
-                                    style={[styles.input, this.state.active.user ? styles.inputActive : null]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    style={[styles.input]}
+                                    onChangeText={text => this.handleChange('firstName', text)}
                                 />
                             </Block>
                             <Block center style={{marginTop: 20}}>
@@ -79,10 +80,8 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     placeholder="Last name "
                                     autoCapitalize="none"
-                                    style={[styles.input, this.state.active.user ? styles.inputActive : null]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    style={[styles.input]}
+                                    onChangeText={text => this.handleChange('lastName', text)}
                                 />
                             </Block>
                             <Block flex bottom style={styles.bottom}>
@@ -90,7 +89,7 @@ export default class PhoneNumber extends React.Component {
                                     shadowless
                                     style={styles.button}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('SignupPrivacy')}
+                                    onPress={() => this.goToScreen('SignupPrivacy')}
                                 >
                                     <Text>NEXT</Text>
                                 </Button>

@@ -10,29 +10,28 @@ import { HeaderHeight } from "../../constants/utils";
 const { height, width } = Dimensions.get('window');
 
 export default class PhoneNumber extends React.Component {
-    state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: '',
+            phoneVerificationData: {}
         }
+        this.inputRef = React.createRef();
+        this.state.phoneVerificationData = this.props.navigation.getParam('phoneVerificationData')
+
     }
 
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
+    handleChange = (value) => {
+        this.setState({ email: value });
     }
 
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
-
-        this.setState({ active });
+    goToScreen(screen) {
+        this.props.navigation.navigate(screen, {
+            userData: this.state
+        })
     }
-
     render() {
+        console.log('this.state', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient
@@ -59,17 +58,14 @@ export default class PhoneNumber extends React.Component {
                         <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
                             <Block center>
                                 <Input
-                                    type='number-pad'
                                     bgColor='transparent'
                                     placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
                                     borderless
                                     color="white"
                                     placeholder="user@user.com"
                                     autoCapitalize="none"
-                                    style={[styles.input, this.state.active.user ? styles.inputActive : null]}
-                                    onChangeText={text => this.handleChange('user', text)}
-                                    onBlur={() => this.toggleActive('user')}
-                                    onFocus={() => this.toggleActive('user')}
+                                    style={[styles.input]}
+                                    onChangeText={text => this.handleChange(text)}
                                 />
                             </Block>
                             <Block flex bottom style={styles.bottom}>
@@ -77,7 +73,7 @@ export default class PhoneNumber extends React.Component {
                                     shadowless
                                     style={styles.button}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('SignupPassword')}
+                                    onPress={() => this.goToScreen('SignupPassword')}
                                 >
                                     <Text>NEXT</Text>
                                 </Button>

@@ -6,33 +6,62 @@ import { Block, Button, Input, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
+import {API_ENDPOINT, BASE_API} from "../../utils/api";
+import Axios from 'axios'
 
 const { height, width } = Dimensions.get('window');
 
 export default class SignupPrivacy extends React.Component {
-    state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            userData: '',
+            firstName: '',
+            lastName: ''
         }
+        const userData =this.props.navigation.getParam('userData')
+        if (userData) {
+            this.state.userData = userData
+        }
+
     }
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
     }
 
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
+    goToScreen(screen, data) {
+        this.props.navigation.navigate(screen, {
+            userData: data
+        })
+    }
 
-        this.setState({ active });
+    saveUser() {
+        const phoneVerification = this.state.userData.userData.userData.userData.phoneVerificationData
+        const otp = `${phoneVerification['firstCode']}${phoneVerification['secondCode']}${phoneVerification['thirdCode']}${phoneVerification['fourthCode']}`
+        const formData = {
+            email: this.state.userData.userData.userData.userData.email,
+            password1: this.state.userData.userData.userData.password,
+            password2: this.state.userData.userData.userData.repeatPassword,
+            first_name: this.state.userData.firstName,
+            last_name: this.state.userData.lastName,
+            phone_number: this.state.userData.userData.userData.userData.phoneVerificationData.phoneNumber,
+            otp: otp
+        }
+        console.log('formData', formData)
+        Axios.post(`${BASE_API}rest-auth/registration/`, formData)
+            .then(res => {
+                console.log('res user added', res)
+                this.goToScreen('UserProfile', res.data)
+            })
+            .catch(err => {
+                console.log('err', err.response)
+                Alert.alert('Warning!', 'Something went wrong!')
+            })
     }
 
     render() {
+        console.log('state iz signup privacy', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient
@@ -102,7 +131,7 @@ export default class SignupPrivacy extends React.Component {
                                     shadowless
                                     style={styles.button}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('UserProfile')}
+                                    onPress={() => this.saveUser()}
                                 >
                                     <Text>NEXT</Text>
                                 </Button>

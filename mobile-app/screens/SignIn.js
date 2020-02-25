@@ -42,55 +42,9 @@ export default class SignIn extends React.Component {
         style={[styles.signin, {flex: 1, paddingTop: theme.SIZES.BASE * 4}]}>
         <Block flex middle>
           <KeyboardAvoidingView behavior="padding" enabled>
-            <Block middle>
-              <Block row center space="between" style={{ marginVertical: theme.SIZES.BASE * 1.875 }}>
-                <Block flex middle right>
-                  <Button
-                    round
-                    onlyIcon
-                    iconSize={theme.SIZES.BASE * 1.625}
-                    icon="facebook"
-                    iconFamily="font-awesome"
-                    color={theme.COLORS.FACEBOOK}
-                    shadowless
-                    iconColor={theme.COLORS.WHITE}
-                    style={styles.social}
-                    onPress={() => Alert.alert('Not implemented')}
-                  />
-                </Block>
-                <Block flex middle center>
-                  <Button
-                    round
-                    onlyIcon
-                    iconSize={theme.SIZES.BASE * 1.625}
-                    icon="twitter"
-                    iconFamily="font-awesome"
-                    color={theme.COLORS.TWITTER}
-                    shadowless
-                    iconColor={theme.COLORS.WHITE}
-                    style={styles.social}
-                    onPress={() => Alert.alert('Not implemented')}
-                  />
-                </Block>
-                <Block flex middle left>
-                  <Button
-                    round
-                    onlyIcon
-                    iconSize={theme.SIZES.BASE * 1.625}
-                    icon="dribbble"
-                    iconFamily="font-awesome"
-                    color={theme.COLORS.DRIBBBLE}
-                    shadowless
-                    iconColor={theme.COLORS.WHITE}
-                    style={styles.social}
-                    onPress={() => Alert.alert('Not implemented')}
-                  />
-                </Block>
-              </Block>
-            </Block>
             <Block middle style={{ paddingVertical: theme.SIZES.BASE * 2.625}}>
               <Text center color="white" size={14}>
-                or be classical
+                or be classicalsss
               </Text>
             </Block>
             <Block flex>
@@ -160,7 +114,7 @@ export default class SignIn extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  signin: {        
+  signin: {
     marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
   },
   social: {
@@ -177,7 +131,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1
   },
   input: {
-    width: width * 0.9, 
+    width: width * 0.9,
     borderRadius: 0,
     borderBottomWidth: 1,
     borderBottomColor: materialTheme.COLORS.PLACEHOLDER,

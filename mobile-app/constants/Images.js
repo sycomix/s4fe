@@ -11,7 +11,7 @@ const Products = {
   'Harley-Davidson': 'https://images.unsplash.com/photo-1515777315835-281b94c9589f?fit=crop&w=840&q=80',
 };
 
-const Profile = 'https://images.unsplash.com/photo-1512529920731-e8abaea917a5?fit=crop&w=840&q=80';
+const Profile = 'https://s4fe.herokuapp.com/static/img/S4FE_LANDINGPAGE1.png';
 const Avatar = 'https://images.unsplash.com/photo-1518725522904-4b3939358342?fit=crop&w=210&q=80';
 
 const Viewed = [
