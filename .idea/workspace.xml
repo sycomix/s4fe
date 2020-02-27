@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/SignIn/SignIn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/utils/api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/utils/countries.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/assets/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/assets/images/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/assets/images/splash.png" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/assets/images/splash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/constants/Images.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/constants/Images.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/constants/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/constants/Theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/Components.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/Components.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignIn.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPrivacy.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPrivacy.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupUserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupUserInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/User/UserProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/User/UserProfile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +97,10 @@
       <workItem from="1582279216634" duration="23695000" />
       <workItem from="1582528729333" duration="1212000" />
       <workItem from="1582626887802" duration="611000" />
-      <workItem from="1582629857346" duration="11162000" />
+      <workItem from="1582629857346" duration="11313000" />
+      <workItem from="1582806574190" duration="7000" />
+      <workItem from="1582806748868" duration="2000" />
+      <workItem from="1582806767972" duration="5488000" />
     </task>
     <servers />
   </component>

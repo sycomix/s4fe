@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, Image } from 'react-native';
+import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, Image, Picker } from 'react-native';
 
 import { Block, Button, Input, Text, theme } from 'galio-framework';
 
@@ -46,32 +46,50 @@ export default class PhoneNumber extends React.Component {
 
     componentDidMount() {
         const countries = countryTelData.allCountries
-        console.log('countries', countries)
         let result = []
         countries.forEach(country => {
             result.push({
                 value: country.dialCode,
-                label: `+${country.dialCode}`
+                label: `${country.name} +${country.dialCode}`
                 // name: country.name
             })
         })
-        console.log('resu', result)
         this.setState({countriesList: result})
+    }
+
+    // Handle selection of the Country
+    handleCountrySelect = (value) => {
+        console.log('value', value)
+        this.setState({
+            selectedCountryCode: value
+        })
+        console.log('selectedCountryCode', this.state.selectedCountryCode)
+
     }
 
     handleChange = (value) => {
         this.setState({phoneNumber: value });
     }
 
+    renderPickerItem() {
+      const data = this.state.countriesList
+        let result = []
+        for (let key in data) {
+            result.push(<Picker.Item label={data[key].label} value={data[key].value} />)
+        }
+        console.log(result)
+        return result
+    }
     // Phone verification
     verifyPhone () {
         this.setState({ dataLoading: true })
-        console.log('verify')
+        console.log('verify', this.state.selectedCountryCode)
         const formData = {
             phone_number: this.state.phoneNumber
         }
         Axios.post(`${BASE_API}api/v1/get-otp`, formData)
-            .then(() => {
+            .then(res => {
+                console.log('res', res)
                 this.setState({ dataLoading: false })
                 this.props.navigation.navigate('PhoneVerification', {
                     phoneNumber: this.state.phoneNumber
@@ -80,14 +98,18 @@ export default class PhoneNumber extends React.Component {
             .catch(err => {
                 console.log(err.response)
                 this.setState({ dataLoading: false })
-                Alert.alert('Warning!', 'Something went wrong!')
+                let tryAgain = null
+                if (err.response.data) {
+                    tryAgain = err.response.data.error
+                }
+                Alert.alert('Warning!', tryAgain)
             })
     }
 
     render() {
         const { navigation } = this.props;
 
-        console.log('state', this.state.countriesList)
+        console.log('state', countryTelData)
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -120,18 +142,26 @@ export default class PhoneNumber extends React.Component {
 
                     {/* Phone number */}
                     <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
-                        <Block style={{ flexDirection: 'row' }}>
+                        <Block>
                             <Block style={[styles.countryInput]}>
-                                <Dropdown
-                                    label='C. Code'
-                                    data={this.state.countriesList}
-                                    baseColor='white'
-                                    value={this.state.selectedCountryCode}
-                                />
+                                <Picker
+                                    selectedValue={this.state.selectedCountryCode}
+                                    style={[styles.countryInput]}
+                                    onValueChange={this.handleCountrySelect}>
+                                    {this.renderPickerItem()}
+                                </Picker>
+                                {/*<Dropdown*/}
+                                {/*    label='Country Code'*/}
+                                {/*    data={this.state.countriesList}*/}
+                                {/*    baseColor='white'*/}
+                                {/*    value={this.state.selectedCountryCode}*/}
+                                {/*    onChangeText={this.handleCountrySelect}*/}
+                                {/*/>*/}
 
 
                             </Block>
-
+                        </Block>
+                        <Block>
                             <Input
                                 type='number-pad'
                                 bgColor='transparent'
@@ -229,11 +259,13 @@ const styles = StyleSheet.create({
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
     },
     countryInput: {
-        width: width * 0.20,
-        marginRight: 20,
+        width: width * 0.9,
+        borderBottomColor: 'white',
+        borderBottomWidth: 1,
+        color: 'white'
     },
     phoneInput: {
-        width: width * 0.6,
+        width: width * 0.9,
         borderRadius: 0,
         borderBottomWidth: 1,
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
