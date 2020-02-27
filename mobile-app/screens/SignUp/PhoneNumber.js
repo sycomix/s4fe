@@ -10,8 +10,10 @@ import Axios from 'axios';
 import {BASE_API} from '../../utils/api'
 import { Dropdown } from 'react-native-material-dropdown';
 import * as Facebook from 'expo-facebook';
-const countryTelData = require('country-telephone-data')
+import ValidationComponent from 'react-native-form-validator';
+import ErrorMessage from "../../components/ErrorMessage";
 
+const countryTelData = require('country-telephone-data')
 const { height, width } = Dimensions.get('window');
 async function logIn() {
     try {
@@ -36,12 +38,12 @@ async function logIn() {
         alert(`Facebook Login Error: ${message}`);
     }
 }
-export default class PhoneNumber extends React.Component {
+export default class PhoneNumber extends ValidationComponent {
     state = {
-        phoneNumber: '',
+        phoneNumber: null,
         dataLoading: false,
         countriesList: [],
-        selectedCountryCode: ''
+        selectedCountryCode: null
     }
 
     componentDidMount() {
@@ -75,41 +77,43 @@ export default class PhoneNumber extends React.Component {
       const data = this.state.countriesList
         let result = []
         for (let key in data) {
-            result.push(<Picker.Item label={data[key].label} value={data[key].value} />)
+            result.push(<Picker.Item label={data[key].label} value={data[key].value} key={data[key].value} />)
         }
-        console.log(result)
         return result
     }
     // Phone verification
     verifyPhone () {
-        this.setState({ dataLoading: true })
-        console.log('verify', this.state.selectedCountryCode)
-        const formData = {
-            phone_number: this.state.phoneNumber
-        }
-        Axios.post(`${BASE_API}api/v1/get-otp`, formData)
-            .then(res => {
-                console.log('res', res)
-                this.setState({ dataLoading: false })
-                this.props.navigation.navigate('PhoneVerification', {
-                    phoneNumber: this.state.phoneNumber
-                });
-            })
-            .catch(err => {
-                console.log(err.response)
-                this.setState({ dataLoading: false })
-                let tryAgain = null
-                if (err.response.data) {
-                    tryAgain = err.response.data.error
-                }
-                Alert.alert('Warning!', tryAgain)
-            })
+      const isValid =  this.validate({
+            phoneNumber: {numbers: true, required: true},
+        });
+      if (isValid) {
+          this.setState({ dataLoading: true })
+          const formData = {
+              phone_number: this.state.selectedCountryCode+ this.state.phoneNumber
+          }
+          Axios.post(`${BASE_API}api/v1/get-otp`, formData)
+              .then(res => {
+                  console.log(res)
+                  this.setState({ dataLoading: false })
+                  this.props.navigation.navigate('PhoneVerification', {
+                      phoneNumber: this.state.selectedCountryCode + this.state.phoneNumber
+                  });
+              })
+              .catch(err => {
+                  console.log(err.response)
+                  this.setState({ dataLoading: false })
+                  let tryAgain = null
+                  if (err.response.data) {
+                      tryAgain = err.response.data.error
+                  }
+                  Alert.alert('Warning!', tryAgain)
+              })
+      }
     }
 
     render() {
         const { navigation } = this.props;
 
-        console.log('state', countryTelData)
         return (
             <LinearGradient
                 start={{ x: 0, y: 0 }}
@@ -141,7 +145,7 @@ export default class PhoneNumber extends React.Component {
 
 
                     {/* Phone number */}
-                    <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
+                    <Block flex={1} style={{ marginTop: height * 0.05 }} space="between">
                         <Block>
                             <Block style={[styles.countryInput]}>
                                 <Picker
@@ -173,6 +177,11 @@ export default class PhoneNumber extends React.Component {
                                 style={[styles.phoneInput]}
                                 onChangeText={text => this.handleChange(text)}
                             />
+                        </Block>
+                        <Block left>
+                            <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                                {this.getErrorMessages()}
+                            </Text>
                         </Block>
 
                         <Block flex top style={{ marginTop: 20 }}>

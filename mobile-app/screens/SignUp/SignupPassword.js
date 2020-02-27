@@ -1,15 +1,14 @@
 import React from 'react';
 import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
+import ValidationComponent from 'react-native-form-validator';
 
 const { height, width } = Dimensions.get('window');
 
-export default class PhoneNumber extends React.Component {
+export default class PhoneNumber extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,6 +22,17 @@ export default class PhoneNumber extends React.Component {
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
+    }
+
+    handleNext() {
+        const isValid =  this.validate({
+            userData: {required: true},
+            password: {required: true},
+            repeatPassword: {required: true},
+        });
+        if (isValid) {
+            this.goToScreen('SignupUserInfo')
+        }
     }
 
     goToScreen(screen) {
@@ -56,7 +66,7 @@ export default class PhoneNumber extends React.Component {
 
 
                         {/* Phone number */}
-                        <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
+                        <Block flex={1} style={{ marginTop: height * 0.05 }} space="between">
                             <Block center>
                                 <Input
                                     secureTextEntry={true}
@@ -84,12 +94,17 @@ export default class PhoneNumber extends React.Component {
                                     onChangeText={text => this.handleChange('repeatPassword', text)}
                                 />
                             </Block>
-                            <Block flex bottom style={styles.bottom}>
+                            <Block left>
+                                <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                                    {this.getErrorMessages()}
+                                </Text>
+                            </Block>
+                            <Block flex bottom>
                                 <Button
                                     shadowless
                                     style={styles.button}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => this.goToScreen('SignupUserInfo')}
+                                    onPress={() => this.handleNext()}
                                 >
                                     <Text>NEXT</Text>
                                 </Button>
@@ -130,8 +145,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "white",
     },
     button: {
-        position: 'absolute',
-        bottom: 0
+        // position: 'absolute',
+        marginTop: 10
     },
     bottom: {
         flex: 1,

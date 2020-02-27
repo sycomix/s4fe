@@ -1,19 +1,19 @@
 import React from 'react';
 import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
+import ValidationComponent from 'react-native-form-validator';
 
 const { height, width } = Dimensions.get('window');
 
-export default class PhoneNumber extends React.Component {
+export default class PhoneNumber extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: '',
+            phoneNumber: null,
+            verificationCode: null,
             firstCode: '',
             secondCode: '',
             thirdCode: '',
@@ -24,15 +24,23 @@ export default class PhoneNumber extends React.Component {
 
     }
 
-    secondRef = ''
-
     handleChange = (name, value) => {
         this.setState({[name]: value });
         console.log('state', this.state)
     }
-    focus = () => {
-        this.inputRef.focus()
+
+    handleNext() {
+        const isValid =  this.validate({
+            phoneNumber: {numbers: true, required: true},
+            verificationCode: {numbers: true, required: true},
+        });
+        if (isValid) {
+            this.props.navigation.navigate('SignupEmail', {
+                phoneVerificationData: this.state
+            })
+        }
     }
+    focus = () => {this.inputRef.focus()}
 
     render() {
         const { navigation } = this.props;
@@ -53,7 +61,7 @@ export default class PhoneNumber extends React.Component {
                                     padding: 20,
 
                                 }}>
-                                    Please enter the 4-digit code sent to your number
+                                    Please enter the 4-digit code sent to your number {' '}
                                     {this.state.phoneNumber}
                                 </Text>
                             </Block>
@@ -65,6 +73,7 @@ export default class PhoneNumber extends React.Component {
                         <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
                             <Block style={{ flexDirection:'row' }}>
                                 <Input
+                                    color={theme.COLORS.ERROR}
                                     autoFocus
                                     type='number-pad'
                                     bgColor='transparent'
@@ -73,44 +82,15 @@ export default class PhoneNumber extends React.Component {
                                     color="white"
                                     autoCapitalize="none"
                                     style={[styles.code]}
-                                    maxLength={1}
-                                    onChangeText={text => this.handleChange('firstCode', text)}
+                                    maxLength={4}
+                                    onChangeText={text => this.handleChange('verificationCode', text)}
                                 />
-                                <Input
-                                    type='number-pad'
-                                    bgColor='transparent'
-                                    placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                                    borderless
-                                    color="white"
-                                    autoCapitalize="none"
-                                    style={[styles.code]}
-                                    maxLength={1}
-                                    onChangeText={text => this.handleChange('secondCode', text)}
-                                />
-                                <Input
-                                    type='number-pad'
-                                    bgColor='transparent'
-                                    placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                                    borderless
-                                    color="white"
-                                    autoCapitalize="none"
-                                    style={[styles.code]}
-                                    maxLength={1}
-                                    onChangeText={text => this.handleChange('thirdCode', text)}
-                                />
-                                <Input
-                                    type='number-pad'
-                                    bgColor='transparent'
-                                    placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                                    borderless
-                                    color="white"
-                                    autoCapitalize="none"
-                                    style={[styles.code]}
-                                    maxLength={1}
-                                    onChangeText={text => this.handleChange('fourthCode', text)}
-                                />
+                            </Block>
 
-
+                            <Block left>
+                                <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                                    {this.getErrorMessages()}
+                                </Text>
                             </Block>
 
                             <Block flex top style={{ marginTop: 20 }}>
@@ -118,9 +98,7 @@ export default class PhoneNumber extends React.Component {
                                     shadowless
                                     style={{ height: 48 }}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('SignupEmail', {
-                                        phoneVerificationData: this.state
-                                    })}
+                                    onPress={() => this.handleNext()}
                                 >
                                     <Text>SUBMIT</Text>
                                 </Button>
@@ -173,7 +151,7 @@ const styles = StyleSheet.create({
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
     },
     code: {
-        width: width * 0.13,
+        width: width * 0.5,
         borderRadius: 0,
         borderBottomWidth: 1,
         borderBottomColor: materialTheme.COLORS.PLACEHOLDER,

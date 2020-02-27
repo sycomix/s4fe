@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/mobile-app/components/ErrorMessage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupUserInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupUserInfo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,9 +192,10 @@
     <state x="2576" y="267" width="752" height="626" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582638141501" />
     <state x="702" y="287" width="724" height="610" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582193005175" />
     <state x="656" y="257" width="607" height="526" key="find.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582022379928" />
-    <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup" timestamp="1582639396258">
-      <screen x="1920" y="0" width="1920" height="1080" />
+    <state x="545" y="219" width="672" height="660" key="search.everywhere.popup" timestamp="1582834501461">
+      <screen x="0" y="0" width="1680" height="1010" />
     </state>
+    <state x="545" y="219" width="672" height="660" key="search.everywhere.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1582834501461" />
     <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582639396258" />
     <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582205478523" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582021948833" />

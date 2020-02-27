@@ -1,15 +1,14 @@
 import React from 'react';
 import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
+import ValidationComponent from 'react-native-form-validator';
 
 const { height, width } = Dimensions.get('window');
 
-export default class PhoneNumber extends React.Component {
+export default class PhoneNumber extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -24,11 +23,23 @@ export default class PhoneNumber extends React.Component {
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
-        console.log('ime i preziem', this.state)
+    }
+
+    handleNext() {
+        console.log(this.state)
+        const isValid =  this.validate({
+            userData: {required: true},
+            firstName: {required: true},
+            lastName: {required: true},
+        });
+        console.log('is valid', isValid)
+        console.log('is valid', this.state.firstName)
+        if (isValid) {
+            this.goToScreen('SignupPrivacy')
+        }
     }
 
     goToScreen(screen) {
-        console.log('state iz info', this.state)
         this.props.navigation.navigate(screen, {
             userData: this.state
         })
@@ -84,12 +95,17 @@ export default class PhoneNumber extends React.Component {
                                     onChangeText={text => this.handleChange('lastName', text)}
                                 />
                             </Block>
-                            <Block flex bottom style={styles.bottom}>
+                            <Block left>
+                                <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                                    {this.getErrorMessages()}
+                                </Text>
+                            </Block>
+                            <Block flex bottom>
                                 <Button
                                     shadowless
                                     style={styles.button}
                                     color={materialTheme.COLORS.WHITE}
-                                    onPress={() => this.goToScreen('SignupPrivacy')}
+                                    onPress={() => this.handleNext()}
                                 >
                                     <Text>NEXT</Text>
                                 </Button>
@@ -130,8 +146,8 @@ const styles = StyleSheet.create({
         borderBottomColor: "white",
     },
     button: {
-        position: 'absolute',
-        bottom: 0
+        // position: 'absolute',
+        marginBottom: 10
     },
     bottom: {
         flex: 1,
