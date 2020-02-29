@@ -18,8 +18,9 @@ export default class IconExtra extends React.Component {
   }
 
   render() {
-    const { name, family, ...rest } = this.props;
-    
+    const { name, ...rest } = this.props;
+    const family = ''
+
     if (name && family && this.state.fontLoaded) {
       if (family === 'GalioExtra') {
         return <IconGalioExtra name={name} family={family} {...rest} />;

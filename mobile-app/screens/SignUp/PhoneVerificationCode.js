@@ -12,8 +12,8 @@ export default class PhoneNumber extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
-            phoneNumber: null,
-            verificationCode: null,
+            phoneNumber: 0,
+            verificationCode: 0,
             firstCode: '',
             secondCode: '',
             thirdCode: '',
@@ -24,15 +24,15 @@ export default class PhoneNumber extends ValidationComponent {
 
     }
 
-    handleChange = (name, value) => {
-        this.setState({[name]: value });
-        console.log('state', this.state)
+    handleChange = (value) => {
+        this.setState({verificationCode: value });
+        console.log('state', typeof this.state.verificationCode)
     }
 
     handleNext() {
         const isValid =  this.validate({
-            phoneNumber: {numbers: true, required: true},
-            verificationCode: {numbers: true, required: true},
+            phoneNumber: {required: true},
+            verificationCode: {required: true},
         });
         if (isValid) {
             this.props.navigation.navigate('SignupEmail', {
@@ -83,7 +83,8 @@ export default class PhoneNumber extends ValidationComponent {
                                     autoCapitalize="none"
                                     style={[styles.code]}
                                     maxLength={4}
-                                    onChangeText={text => this.handleChange('verificationCode', text)}
+                                    onChangeText={text => this.handleChange(text)}
+                                    returnKeyType="done"
                                 />
                             </Block>
 

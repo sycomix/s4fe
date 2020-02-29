@@ -10,7 +10,7 @@ import homeImages from '../constants/images/home';
 export default class Home extends React.Component {
   renderSearch = () => {
     const { navigation } = this.props;
-    const iconContent = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
+    const iconContent = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" />
 
     return (
       <Input
@@ -23,7 +23,7 @@ export default class Home extends React.Component {
       />
     )
   }
-  
+
   renderTabs = () => {
     const { navigation } = this.props;
 
@@ -74,7 +74,7 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
   home: {
-    width: width,    
+    width: width,
   },
   search: {
     height: 48,

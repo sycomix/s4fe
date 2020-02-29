@@ -10,7 +10,7 @@ import newcollectionImages from '../constants/images/newcollection';
 export default class NewCollection extends React.Component {
   renderSearch = () => {
     const { navigation } = this.props;
-    const iconContent = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="material" />
+    const iconContent = <Icon size={16} color={theme.COLORS.MUTED} name="zoom-in" family="" />
 
     return (
       <Input
@@ -23,7 +23,7 @@ export default class NewCollection extends React.Component {
       />
     )
   }
-  
+
   renderTabs = () => {
     const { navigation } = this.props;
 
@@ -74,7 +74,7 @@ export default class NewCollection extends React.Component {
 
 const styles = StyleSheet.create({
   home: {
-    width: width,    
+    width: width,
   },
   search: {
     height: 48,

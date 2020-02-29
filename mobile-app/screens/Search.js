@@ -52,7 +52,7 @@ export default class Search extends React.Component {
       <TouchableWithoutFeedback onPress={() => this.setState({ search: '' })}>
         <Icon size={16} color={theme.COLORS.MUTED} name="page-remove" family="foundation" />
       </TouchableWithoutFeedback> :
-      <Icon size={16} color={theme.COLORS.MUTED} name="magnifying-glass" family="entypo" />
+      <Icon size={16} color={theme.COLORS.MUTED}   />
     )
 
     return (

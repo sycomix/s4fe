@@ -33,7 +33,6 @@ class DrawerItem extends React.Component {
           <Icon
             size={16}
             name="man"
-            family="entypo"
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Kids':
@@ -49,7 +48,7 @@ class DrawerItem extends React.Component {
           <Icon
             size={16}
             name="grid-on"
-            family="material"
+            family=""
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Profile':
@@ -65,7 +64,7 @@ class DrawerItem extends React.Component {
           <Icon
             size={16}
             name="gears"
-            family="font-awesome"
+            family=""
             color={focused ? 'white' : materialTheme.COLORS.MUTED} />
         );
       case 'Components':

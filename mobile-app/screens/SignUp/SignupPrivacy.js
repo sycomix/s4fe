@@ -6,8 +6,8 @@ import { Block, Button, Input, Text, theme } from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
-import {API_ENDPOINT, BASE_API} from "../../utils/api";
-import Axios from 'axios'
+import {API, API_ENDPOINT, BASE_API} from "../../utils/api";
+import {Axios} from '../../utils/axios'
 
 const { height, width } = Dimensions.get('window');
 
@@ -37,8 +37,7 @@ export default class SignupPrivacy extends React.Component {
     }
 
     saveUser() {
-        const phoneVerification = this.state.userData.userData.userData.userData.phoneVerificationData
-        const otp = `${phoneVerification['firstCode']}${phoneVerification['secondCode']}${phoneVerification['thirdCode']}${phoneVerification['fourthCode']}`
+        const phoneVerification = this.state.userData.userData.userData.userData.phoneVerificationData.verificationCode
         const formData = {
             email: this.state.userData.userData.userData.userData.email,
             password1: this.state.userData.userData.userData.password,
@@ -46,10 +45,10 @@ export default class SignupPrivacy extends React.Component {
             first_name: this.state.userData.firstName,
             last_name: this.state.userData.lastName,
             phone_number: this.state.userData.userData.userData.userData.phoneVerificationData.phoneNumber,
-            otp: otp
+            otp: phoneVerification
         }
         console.log('formData', formData)
-        Axios.post(`${BASE_API}rest-auth/registration/`, formData)
+        Axios.post(`${API.REGISTRATION}`, formData)
             .then(res => {
                 console.log('res user added', res)
                 this.goToScreen('UserProfile', res.data)

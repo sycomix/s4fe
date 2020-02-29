@@ -38,7 +38,6 @@ const SearchButton = ({isWhite, style, navigation}) => (
   <TouchableOpacity style={[styles.button, style]} onPress={() => navigation.navigate('Search')}>
     <Icon
       size={16}
-      family="entypo"
       name="magnifying-glass"
       color={theme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
@@ -102,7 +101,7 @@ class Header extends React.Component {
         style={styles.search}
         placeholder="What are you looking for?"
         onFocus={() => navigation.navigate('Search')}
-        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="magnifying-glass" family="entypo" />}
+        iconContent={<Icon size={16} color={theme.COLORS.MUTED} name="magnifying-glass" family="" />}
       />
     )
   }
@@ -131,7 +130,7 @@ class Header extends React.Component {
   renderTabs = () => {
     const { tabs, tabIndex, navigation } = this.props;
     const defaultTab = tabs && tabs[0] && tabs[0].id;
-    
+
     if (!tabs) return null;
 
     return (
