@@ -49,6 +49,7 @@ import SignInScreen from '../screens/SignIn/SignIn'
 import Menu from './Menu';
 import { Header, Drawer } from '../components/';
 import { tabs } from '../constants/';
+import ForgotPassword from "../screens/SignIn/ForgotPassword";
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -434,68 +435,78 @@ const NewCollectionStack = createStackNavigator({
   transitionConfig,
 })
 
+const AuthStack = createStackNavigator({
+  PhoneNumber: {
+    screen: PhoneNumberScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  PhoneVerification: {
+    screen: PhoneVerificationCodeScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  SignupEmail: {
+    screen: SignupEmailScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  SignupPassword: {
+    screen: SignupPasswordScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  SignupPrivacy: {
+    screen: SignupPrivacyScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  SignupUserInfo: {
+    screen: SignupUserInfoScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  PrivacyPolicy: {
+    screen: PrivacyPolicyScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  TermsAndConditions: {
+    screen: TermsAndConditionsScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  SignIn: {
+    screen: SignInScreen,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+  ForgotPassword: {
+    screen: ForgotPassword,
+    navigationOptions: ({navigation}) => ({
+      headerTransparent: true,
+    })
+  },
+})
+
 const HomeStack = createStackNavigator({
-    PhoneNumber: {
-      screen: PhoneNumberScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    PhoneVerification: {
-      screen: PhoneVerificationCodeScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    SignupEmail: {
-      screen: SignupEmailScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    SignupPassword: {
-      screen: SignupPasswordScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    SignupPrivacy: {
-      screen: SignupPrivacyScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    SignupUserInfo: {
-      screen: SignupUserInfoScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    PrivacyPolicy: {
-      screen: PrivacyPolicyScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
-    TermsAndConditions: {
-      screen: TermsAndConditionsScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
+
     UserProfile: {
       screen: UserProfileScreen,
       navigationOptions: ({navigation}) => ({
         headerTransparent: true,
       })
     },
-// Singin
-    SignIn: {
-      screen: SignInScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
-    },
+
   Home: {
     screen: HomeScreen,
     navigationOptions: ({navigation}) => ({
@@ -663,13 +674,13 @@ const AppStack = createDrawerNavigator({
 
 const Switch =  createSwitchNavigator(
   {
-    App: AppStack,
+    App: AuthStack,
     Home: HomeStack,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'App',
   }
 );
 
-const AppContainer = createAppContainer(HomeStack);
+const AppContainer = createAppContainer(Switch);
 export default AppContainer;

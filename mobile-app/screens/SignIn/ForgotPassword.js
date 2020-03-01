@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 import {Axios} from '../../utils/axios';
-import {API, BASE_API} from "../../utils/api";
+import {API} from "../../utils/api";
 import ValidationComponent from 'react-native-form-validator';
 
 const { height, width } = Dimensions.get('window');
@@ -15,8 +15,7 @@ export default class SignIn extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
+            email: 'dj.shone@gmail.com',
             dataLoading: false
         }
     }
@@ -33,32 +32,32 @@ export default class SignIn extends ValidationComponent {
     }
 
     // Phone verification
-    login () {
+    sendEmail () {
         const isValid =  this.validate({
             email: {email: true, required: true},
-            password: {required: true},
         });
         if (isValid) {
             this.setState({ dataLoading: true })
             console.log('login')
             const formData = {
                 email: this.state.email,
-                password: this.state.password
             }
-            Axios.post(API.LOGIN, formData)
+            Axios.post(`${API.FORGOT_PASSWORD}`, formData)
                 .then((res) => {
                     console.log('res', res)
                     this.setState({ dataLoading: false })
-                    this.goToScreen('UserProfile', res.data)
+                    Alert.alert('Done', 'Password reset e-mail has been sent!')
+                    this.goToScreen('SignIn')
                 })
                 .catch(err => {
                     console.log(err.response)
-                    const nonFieldErrors = err.response.data.non_field_errors
-                    if (nonFieldErrors) {
-                        Alert.alert('Warning', nonFieldErrors[0])
+                    const nonExistingEmail = err.response.data.email
+                    if (nonExistingEmail) {
+                        Alert.alert('Warning!', nonExistingEmail.email[0])
+                    } else {
+                        Alert.alert('Warning!', 'Something went wrong!')
                     }
                     this.setState({ dataLoading: false })
-                    // Alert.alert('Warning!', 'Something went wrong!')
                 })
         }
 
@@ -78,7 +77,7 @@ export default class SignIn extends ValidationComponent {
                 style={[styles.signin, {flex: 1, paddingTop: theme.SIZES.BASE * 4}]}>
                 <Block flex middle>
                     <KeyboardAvoidingView behavior="padding" enabled>
-                        <Block style={{ marginTop: height * 0.15 }}>
+                        <Block style={{ marginTop: height * 0.20 }}>
                             <Block row center space="between">
                                 <Text style={{
                                     color: 'white',
@@ -86,19 +85,19 @@ export default class SignIn extends ValidationComponent {
                                     fontWeight: 'bold',
                                     padding: 20
                                 }}>
-                                   Sing In
+                                    Forgot Password
                                 </Text>
                             </Block>
                             <Block row center space="between">
                                 <Text style={{
                                     color: 'white',
-                                    fontSize: 22,
+                                    fontSize: 20,
                                 }}>
-                                    Enter your email and password
+                                    Enter your email and we will send you the instructions how to reset your password.
                                 </Text>
                             </Block>
                         </Block>
-                        <Block  style={{ marginTop: height * 0.06, paddingVertical: theme.SIZES.BASE * 2.625}}>
+                        <Block  style={{ marginTop: height * 0.03, paddingVertical: theme.SIZES.BASE * 2.625}}>
                             <Block center>
                                 <Input
                                     borderless
@@ -111,24 +110,6 @@ export default class SignIn extends ValidationComponent {
                                     onChangeText={text => this.handleChange('email', text)}
                                     style={[styles.input]}
                                 />
-                                <Input
-                                    password
-                                    borderless
-                                    color="white"
-                                    placeholder="Password"
-                                    bgColor='transparent'
-                                    placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
-                                    onChangeText={text => this.handleChange('password', text)}
-                                    style={[styles.input]}
-                                />
-                                <Text
-                                    color={theme.COLORS.WHITE}
-                                    size={theme.SIZES.FONT * 0.95}
-                                    onPress={() => navigation.navigate('ForgotPassword')}
-                                    style={{ alignSelf: 'flex-end', lineHeight: theme.SIZES.FONT * 2 }}
-                                >
-                                    Forgot your password?
-                                </Text>
                             </Block>
                             <Block left>
                                 <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
@@ -140,9 +121,9 @@ export default class SignIn extends ValidationComponent {
                                     shadowless
                                     color={materialTheme.COLORS.WHITE}
                                     style={{ height: 48 }}
-                                    onPress={() => this.login()}
+                                    onPress={() => this.sendEmail()}
                                 >
-                                    <Text>SIGN IN</Text>
+                                    <Text>SEND</Text>
                                 </Button>
                                 <Button color="transparent" shadowless onPress={() => navigation.navigate('PhoneNumber')}>
                                     <Text

@@ -17,6 +17,17 @@ const countryTelData = require('country-telephone-data')
 const { height, width } = Dimensions.get('window');
 import RNPickerSelect from 'react-native-picker-select';
 
+import * as GoogleSignIn from 'expo-google-sign-in';
+
+
+
+
+
+
+
+
+
+
 
 async function logIn() {
     try {
@@ -72,7 +83,48 @@ export default class PhoneNumber extends ValidationComponent {
     }
 
 
+    initAsync = async () => {
+        await GoogleSignIn.initAsync({
+            // You may ommit the clientId when the firebase `googleServicesFile` is configured
+            clientId: 'host.exp.Exponent',
+        });
+        this._syncUserWithStateAsync();
+    };
+
+    _syncUserWithStateAsync = async () => {
+        const user = await GoogleSignIn.signInSilentlyAsync();
+        console.log('user iz google', user)
+        // this.setState({ user });
+    };
+
+    signOutAsync = async () => {
+        await GoogleSignIn.signOutAsync();
+        // this.setState({ user: null });
+    };
+
+    signInAsync = async () => {
+        try {
+            await GoogleSignIn.askForPlayServicesAsync();
+            const { type, user } = await GoogleSignIn.signInAsync();
+            if (type === 'success') {
+                this._syncUserWithStateAsync();
+            }
+        } catch ({ message }) {
+            alert('login: Error:' + message);
+        }
+    };
+
+    onPress = () => {
+        if (this.state.user) {
+            this.signOutAsync();
+        } else {
+            this.signInAsync();
+        }
+    };
+
+
     componentDidMount() {
+        this.initAsync()
         const countries = countryTelData.allCountries
         let result = []
         countries.forEach(country => {

@@ -14,7 +14,8 @@ export default class PhoneNumber extends ValidationComponent {
         this.state = {
             userData: '',
             password: '',
-            repeatPassword: ''
+            repeatPassword: '',
+            passwordDidntMatch: false
         }
         this.state.userData = this.props.navigation.getParam('userData')
 
@@ -30,7 +31,9 @@ export default class PhoneNumber extends ValidationComponent {
             password: {required: true},
             repeatPassword: {required: true},
         });
-        if (isValid) {
+        const passwordMatch = this.state.password === this.state.repeatPassword
+        if (!passwordMatch) { this.setState({passwordDidntMatch: true})}
+        if (isValid && passwordMatch) {
             this.goToScreen('SignupUserInfo')
         }
     }
@@ -65,7 +68,6 @@ export default class PhoneNumber extends ValidationComponent {
                         </Block>
 
 
-                        {/* Phone number */}
                         <Block flex={1} style={{ marginTop: height * 0.05 }} space="between">
                             <Block center>
                                 <Input
@@ -95,11 +97,17 @@ export default class PhoneNumber extends ValidationComponent {
                                 />
                             </Block>
                             <Block left>
+                                {this.state.passwordDidntMatch ?
+                                <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                                    Passwords didn't match.
+                                </Text>
+                                    : <Block />}
+
                                 <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
                                     {this.getErrorMessages()}
                                 </Text>
                             </Block>
-                            <Block flex bottom>
+                            <Block flex center>
                                 <Button
                                     shadowless
                                     style={styles.button}

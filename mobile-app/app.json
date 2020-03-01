@@ -26,7 +26,12 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "host.exp.Exponent",
-      "buildNumber": "1.0.3"
+      "buildNumber": "1.0.3",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "host.exp.Exponent"
+        }
+      }
     },
     "android": {
       "package": "io.s4fe.app",
