@@ -70,7 +70,7 @@ export default class PhoneNumber extends ValidationComponent {
 
 
                         {/* Phone number */}
-                        <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
+                        <Block flex={1} style={{ marginTop: height * 0.05 }} space="between">
                             <Block center>
                                 <Input
                                     bgColor='transparent'
@@ -100,7 +100,7 @@ export default class PhoneNumber extends ValidationComponent {
                                     {this.getErrorMessages()}
                                 </Text>
                             </Block>
-                            <Block flex bottom>
+                            <Block flex center>
                                 <Button
                                     shadowless
                                     style={styles.button}
@@ -146,7 +146,9 @@ const styles = StyleSheet.create({
         borderBottomColor: "white",
     },
     button: {
+        height: 48,
         // position: 'absolute',
+        marginTop: 10,
         marginBottom: 10
     },
     bottom: {

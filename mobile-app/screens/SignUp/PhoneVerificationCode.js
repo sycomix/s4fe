@@ -55,23 +55,15 @@ export default class PhoneNumber extends ValidationComponent {
                     <KeyboardAvoidingView behavior="padding" enabled>
                         <Block style={{ marginTop: height * 0.2 }}>
                             <Block row center space="between">
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 25,
-                                    padding: 20,
-
-                                }}>
+                                <Text style={{color: 'white', fontSize: 25, padding: 20,}}>
                                     Please enter the 4-digit code sent to your number {' '}
                                     {this.state.phoneNumber}
                                 </Text>
                             </Block>
-
                         </Block>
 
-
-                        {/* Phone number */}
                         <Block flex={1} style={{ marginTop: height * 0.05 }} center space="between">
-                            <Block style={{ flexDirection:'row' }}>
+                            <Block center>
                                 <Input
                                     color={theme.COLORS.ERROR}
                                     autoFocus

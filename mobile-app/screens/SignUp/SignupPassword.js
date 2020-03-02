@@ -61,6 +61,8 @@ export default class PhoneNumber extends ValidationComponent {
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 30,
+                                    paddingLeft: 20,
+                                    paddingRight: 20
                                 }}>
                                     Create your account password
                                 </Text>

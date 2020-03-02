@@ -57,6 +57,7 @@ export default class PhoneNumber extends ValidationComponent {
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 30,
+                                    padding: 20
                                 }}>
                                     What is your Email address?
                                 </Text>
@@ -83,7 +84,7 @@ export default class PhoneNumber extends ValidationComponent {
                                     {this.getErrorMessages()}
                                 </Text>
                             </Block>
-                            <Block flex>
+                            <Block center flex>
                                 <Button
                                     shadowless
                                     style={styles.button}

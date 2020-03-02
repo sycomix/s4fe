@@ -33,11 +33,11 @@ export default class UserProfile extends React.Component {
                             <Text color="white" size={28} style={{ paddingBottom: 8 }}>
                                 {this.state.userData.first_name} {this.state.userData.last_name}
                             </Text>
-                            <Block row space="between">
-                                <Block row>
+                            <Block  space="between">
+                                <Block>
                                     <Text color="white" size={16} muted style={styles.seller}>
                                         <Icon name="envelope" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                                        {`  `} {this.state.userData.email}
+                                        {this.state.userData.email}
                                     </Text>
                                     {/*<Text size={16} color={materialTheme.COLORS.WARNING}>*/}
                                     {/*    4.8 <Icon name="shape-star" family="GalioExtra" size={14} />*/}
@@ -46,7 +46,7 @@ export default class UserProfile extends React.Component {
                                 <Block>
                                     <Text color={theme.COLORS.MUTED} size={16}>
                                         <Icon name="phone" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                                        {`  `} {this.state.userData.phone_number}
+                                        {this.state.userData.phone_number}
                                     </Text>
                                 </Block>
                             </Block>

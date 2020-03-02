@@ -20,15 +20,6 @@ import RNPickerSelect from 'react-native-picker-select';
 import * as GoogleSignIn from 'expo-google-sign-in';
 
 
-
-
-
-
-
-
-
-
-
 async function logIn() {
     try {
         await Facebook.initializeAsync('151707949234327');
@@ -48,11 +39,11 @@ async function logIn() {
 
             // Send ID to the API
             const formData = {
-                access_token: facebookID.id
+                code: facebookID.id
             }
             Axios.post(API.FACEBOOK, formData)
-                .then(() => {
-                    console.log('sent to api')
+                .then((res) => {
+                    console.log('sent to api', res.data)
                 })
                 .catch(e => {
                     console.log('err', e.response)
@@ -75,7 +66,7 @@ export default class PhoneNumber extends ValidationComponent {
             phoneNumber: null,
             dataLoading: false,
             countriesList: [],
-            selectedCountryCode: null,
+            selectedCountryCode: '',
             selectedCountryLabel: null,
         }
 
@@ -139,30 +130,20 @@ export default class PhoneNumber extends ValidationComponent {
 
     // Handle selection of the Country
     handleCountrySelect = (value) => {
-        console.log('value', value)
         this.setState({
             selectedCountryCode: value
         })
-        console.log('selectedCountryCode', this.state.selectedCountryCode)
-
     }
 
     handleChange = (value) => {
         this.setState({phoneNumber: value });
     }
 
-    renderPickerItem() {
-      const data = this.state.countriesList
-        let result = []
-        for (let key in data) {
-            result.push(<Picker.Item label={data[key].label} value={data[key].value} key={data[key].value} />)
-        }
-        return result
-    }
     // Phone verification
     verifyPhone () {
       const isValid =  this.validate({
             phoneNumber: {numbers: true, required: true},
+            selectedCountryCode: {required: true},
         });
       if (isValid) {
           this.setState({ dataLoading: true })
@@ -206,7 +187,7 @@ export default class PhoneNumber extends ValidationComponent {
                 colors={['#EBA721', '#EBA721']}
                 style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
                 <Block flex middle>
-                    <Block style={{ marginTop: 40 }}>
+                    <Block style={{ marginTop: height * 0.15 }}>
                         <Block row center space="between">
                             <Text style={{
                                 color: 'white',
@@ -230,35 +211,19 @@ export default class PhoneNumber extends ValidationComponent {
 
                     {/* Phone number */}
                     <Block flex={1} style={{ marginTop: height * 0.05 }} space="between">
-                        <Block>
+                        <Block center>
                             <Block style={[styles.countryInput]}>
-                                {/*<Picker*/}
-                                {/*    selectedValue={this.state.selectedCountryCode}*/}
-                                {/*    style={[styles.countryInput]}*/}
-                                {/*    onValueChange={this.handleCountrySelect}>*/}
-                                {/*    {this.renderPickerItem()}*/}
-                                {/*</Picker>*/}
-
                                 <RNPickerSelect
                                     style={pickerSelectStyles}
                                     onValueChange={this.handleCountrySelect}
                                     items={this.state.countriesList}
                                 >
-                                    {/*{this.state.selectedCountryCode ?*/}
-                                    {/*    <Text style={placeholder}>*/}
-                                    {/*        {this.state.selectedCountryCode}*/}
-                                    {/*    </Text> :*/}
-                                    {/*    <Text/>*/}
-                                    {/*}*/}
                                 </RNPickerSelect>
-
-
-
                             </Block>
                         </Block>
-                        <Block>
+                        <Block center>
                             <Input
-                                // type='number-pad'
+                                type='number-pad'
                                 bgColor='transparent'
                                 placeholderTextColor={materialTheme.COLORS.PLACEHOLDER}
                                 borderless
@@ -270,12 +235,12 @@ export default class PhoneNumber extends ValidationComponent {
                             />
                         </Block>
                         <Block left>
-                            <Text style={{fontWeight: 'bold', color: materialTheme.COLORS.ERROR}}>
+                            <Text style={{fontWeight: 'bold', padding: 15, color: materialTheme.COLORS.ERROR}}>
                                 {this.getErrorMessages()}
                             </Text>
                         </Block>
 
-                        <Block flex top style={{ marginTop: 20 }}>
+                        <Block flex center>
                             <Button
                                 disabled={this.dataLoading}
                                 shadowless
@@ -344,7 +309,7 @@ const pickerSelectStyles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: 'purple',
         borderRadius: 8,
-        color: 'black',
+        color: 'white',
         paddingRight: 30, // to ensure the text is never behind the icon
     },
 });
