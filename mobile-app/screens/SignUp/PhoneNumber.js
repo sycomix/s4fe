@@ -30,17 +30,18 @@ async function logIn() {
             permissions,
             declinedPermissions,
         } = await Facebook.logInWithReadPermissionsAsync({
-            permissions: ['public_profile'],
+            permissions: ['public_profile', 'email'],
         });
         if (type === 'success') {
-            // Get the user's name using Facebook's Graph API
-            const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-            const facebookID = await response.json()
+            // // Get the user's name using Facebook's Graph API
+            // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+            // const facebookID = await response.json()
 
             // Send ID to the API
             const formData = {
-                code: facebookID.id
+                access_token: token
             }
+            console.log(formData)
             Axios.post(API.FACEBOOK, formData)
                 .then((res) => {
                     console.log('sent to api', res.data)
@@ -48,7 +49,7 @@ async function logIn() {
                 .catch(e => {
                     console.log('err', e.response)
                 })
-            console.log('data', facebookID)
+            // console.log('data', facebookID)
         } else {
             // type === 'cancel'
         }

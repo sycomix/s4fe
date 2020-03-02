@@ -15,7 +15,7 @@ export default class SignIn extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'dj.shone@gmail.com',
+            email: '',
             dataLoading: false
         }
     }
@@ -77,13 +77,13 @@ export default class SignIn extends ValidationComponent {
                 style={[styles.signin, {flex: 1, paddingTop: theme.SIZES.BASE * 4}]}>
                 <Block flex middle>
                     <KeyboardAvoidingView behavior="padding" enabled>
-                        <Block style={{ marginTop: height * 0.20 }}>
+                        <Block style={{ marginTop: height * 0.5 }}>
                             <Block row center space="between">
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 35,
                                     fontWeight: 'bold',
-                                    padding: 20
+                                    padding: 20,
                                 }}>
                                     Forgot Password
                                 </Text>
@@ -92,12 +92,14 @@ export default class SignIn extends ValidationComponent {
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 20,
+                                    paddingLeft: 20,
+                                    paddingRight: 20
                                 }}>
                                     Enter your email and we will send you the instructions how to reset your password.
                                 </Text>
                             </Block>
                         </Block>
-                        <Block  style={{ marginTop: height * 0.03, paddingVertical: theme.SIZES.BASE * 2.625}}>
+                        <Block  style={{ marginTop: height * 0.05}}>
                             <Block center>
                                 <Input
                                     borderless
@@ -116,7 +118,7 @@ export default class SignIn extends ValidationComponent {
                                     {this.getErrorMessages()}
                                 </Text>
                             </Block>
-                            <Block flex top style={{ marginTop: 20 }}>
+                            <Block flex center style={{ marginTop: 20 }}>
                                 <Button
                                     shadowless
                                     color={materialTheme.COLORS.WHITE}

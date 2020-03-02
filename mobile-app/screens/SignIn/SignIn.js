@@ -78,7 +78,7 @@ export default class SignIn extends ValidationComponent {
                 style={[styles.signin, {flex: 1, paddingTop: theme.SIZES.BASE * 4}]}>
                 <Block flex middle>
                     <KeyboardAvoidingView behavior="padding" enabled>
-                        <Block style={{ marginTop: height * 0.15 }}>
+                        <Block style={{ marginTop: height * 0.5 }}>
                             <Block row center space="between">
                                 <Text style={{
                                     color: 'white',
@@ -93,12 +93,14 @@ export default class SignIn extends ValidationComponent {
                                 <Text style={{
                                     color: 'white',
                                     fontSize: 22,
+                                    paddingLeft: 20,
+                                    paddingRight: 20
                                 }}>
                                     Enter your email and password
                                 </Text>
                             </Block>
                         </Block>
-                        <Block  style={{ marginTop: height * 0.06, paddingVertical: theme.SIZES.BASE * 2.625}}>
+                        <Block  style={{ marginTop: height * 0.05}}>
                             <Block center>
                                 <Input
                                     borderless
@@ -135,7 +137,7 @@ export default class SignIn extends ValidationComponent {
                                     {this.getErrorMessages()}
                                 </Text>
                             </Block>
-                            <Block flex top style={{ marginTop: 20 }}>
+                            <Block flex center style={{ marginTop: 20 }}>
                                 <Button
                                     shadowless
                                     color={materialTheme.COLORS.WHITE}
