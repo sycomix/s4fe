@@ -31,7 +31,7 @@ import NotificationsScreen from '../screens/Notifications';
 import PrivacyScreen from '../screens/Privacy';
 import AboutScreen from '../screens/About';
 import AgreementScreen from '../screens/Agreement';
-
+import AuthLoadingScreen from "../screens/Auth/AuthLoadingScreen";
 // Signup
 import PhoneNumberScreen from "../screens/SignUp/PhoneNumber";
 import PhoneVerificationCodeScreen from "../screens/SignUp/PhoneVerificationCode";
@@ -50,6 +50,7 @@ import Menu from './Menu';
 import { Header, Drawer } from '../components/';
 import { tabs } from '../constants/';
 import ForgotPassword from "../screens/SignIn/ForgotPassword";
+import AddItemScreen from "../screens/Items/AddItem";
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -87,10 +88,31 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
 })
 
 const ProfileStack = createStackNavigator({
+  UserProfile: {
+    screen: UserProfileScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header white transparent title="Profile" navigation={navigation} />,
+      headerTransparent: true,
+    })
+  },
   Profile: {
     screen: ProfileScreen,
     navigationOptions: ({ navigation }) => ({
       header: <Header white transparent title="Profile" navigation={navigation} />,
+      headerTransparent: true,
+    })
+  },
+  ItemDetails: {
+    screen: ProductScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back white transparent title="" navigation={navigation} />,
+      headerTransparent: true,
+    })
+  },
+  AddItem: {
+    screen: AddItemScreen,
+    navigationOptions: ({navigation}) => ({
+      header: <Header back black title="Add Item" navigation={navigation} />,
       headerTransparent: true,
     })
   },
@@ -188,13 +210,13 @@ const WomanStack = createStackNavigator({
       }
     }
   },
-  Product: {
-    screen: ProductScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
+  // Product: {
+  //   screen: ProductScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back white transparent title="" navigation={navigation} />,
+  //     headerTransparent: true,
+  //   })
+  // },
   Gallery: {
     screen: GalleryScreen,
     navigationOptions: ({navigation}) => ({
@@ -257,13 +279,13 @@ const ManStack = createStackNavigator({
       }
     }
   },
-  Product: {
-    screen: ProductScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
+  // Product: {
+  //   screen: ProductScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back white transparent title="" navigation={navigation} />,
+  //     headerTransparent: true,
+  //   })
+  // },
   Gallery: {
     screen: GalleryScreen,
     navigationOptions: ({navigation}) => ({
@@ -326,13 +348,13 @@ const KidsStack = createStackNavigator({
       }
     }
   },
-  Product: {
-    screen: ProductScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
+  // Product: {
+  //   screen: ProductScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back white transparent title="" navigation={navigation} />,
+  //     headerTransparent: true,
+  //   })
+  // },
   Gallery: {
     screen: GalleryScreen,
     navigationOptions: ({navigation}) => ({
@@ -498,82 +520,86 @@ const AuthStack = createStackNavigator({
   },
 })
 
-const HomeStack = createStackNavigator({
+const HomeStack = createDrawerNavigator({
 
     UserProfile: {
-      screen: UserProfileScreen,
-      navigationOptions: ({navigation}) => ({
-        headerTransparent: true,
-      })
+      screen: ProfileStack,
+      navigationOptions: (navOpt) => ({
+        drawerLabel: ({focused}) => (
+            <Drawer focused={focused} screen="UserProfile" title="Profile" />
+        ),
+      }),
     },
 
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header search options title="Home" navigation={navigation} />,
-    })
-  },
-  Deals: {
-    screen: DealsScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back tabs={tabs.deals} title="Best Deals" navigation={navigation} />,
-    })
-  },
-  Categories: {
-    screen: CategoriesScreen,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header back tabs={tabs.categories} tabIndex={tabs.categories[1].id} title="Categories" navigation={navigation} />,
-    })
-  },
-  Category: {
-    screen: CategoryScreen,
-    navigationOptions: ({navigation}) => {
-      const { params } = navigation.state;
-      const title = params && params.title || "Category";
-      return {
-        header: <Header back title={title} navigation={navigation} />,
-      }
-    }
-  },
-  Product: {
-    screen: ProductScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
-  Gallery: {
-    screen: GalleryScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back white transparent title="" navigation={navigation} />,
-      headerTransparent: true,
-    })
-  },
-  Chat: {
-    screen: ChatScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back title="Rachel Brown" navigation={navigation} />,
-    })
-  },
-  Cart: {
-    screen: CartScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back title="Shopping Cart" navigation={navigation} />,
-    })
-  },
-  Search: {
-    screen: SearchScreen,
-    navigationOptions: ({navigation}) => ({
-      header: <Header back title="Search" navigation={navigation} />,
-    })
-  },
+  // Home: {
+  //   screen: HomeScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header search options title="Home" navigation={navigation} />,
+  //   })
+  // },
+  // Deals: {
+  //   screen: DealsScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back tabs={tabs.deals} title="Best Deals" navigation={navigation} />,
+  //   })
+  // },
+  // Categories: {
+  //   screen: CategoriesScreen,
+  //   navigationOptions: ({ navigation }) => ({
+  //     header: <Header back tabs={tabs.categories} tabIndex={tabs.categories[1].id} title="Categories" navigation={navigation} />,
+  //   })
+  // },
+  // Category: {
+  //   screen: CategoryScreen,
+  //   navigationOptions: ({navigation}) => {
+  //     const { params } = navigation.state;
+  //     const title = params && params.title || "Category";
+  //     return {
+  //       header: <Header back title={title} navigation={navigation} />,
+  //     }
+  //   }
+  // },
+  // Product: {
+  //   screen: ProductScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back white transparent title="" navigation={navigation} />,
+  //     headerTransparent: true,
+  //   })
+  // },
+  // Gallery: {
+  //   screen: GalleryScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back white transparent title="" navigation={navigation} />,
+  //     headerTransparent: true,
+  //   })
+  // },
+  // Chat: {
+  //   screen: ChatScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back title="Rachel Brown" navigation={navigation} />,
+  //   })
+  // },
+  // Cart: {
+  //   screen: CartScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back title="Shopping Cart" navigation={navigation} />,
+  //   })
+  // },
+  // Search: {
+  //   screen: SearchScreen,
+  //   navigationOptions: ({navigation}) => ({
+  //     header: <Header back title="Search" navigation={navigation} />,
+  //   })
+  // },
 },
-{
-  cardStyle: {
-    backgroundColor: '#EEEEEE', //this is the backgroundColor for the app
-  },
-  transitionConfig,
-});
+    Menu,
+    // {
+    //   cardStyle: {
+    //     backgroundColor: '#EEEEEE', //this is the backgroundColor for the app
+    //   },
+    //   transitionConfig,
+    // }
+);
 
 const AppStack = createDrawerNavigator({
     Onboarding: {
@@ -671,15 +697,20 @@ const AppStack = createDrawerNavigator({
   },
   Menu
 );
+const AppNavigator = {
+  AuthLoadingScreen: {screen: AuthLoadingScreen},
+}
 
 const Switch =  createSwitchNavigator(
-  {
-    App: AuthStack,
-    Home: HomeStack,
-  },
-  {
-    initialRouteName: 'App',
-  }
+    {
+      ...AppNavigator,
+      App: AuthStack,
+      Home: HomeStack,
+      // AppStack: AppStack,
+    },
+    {
+      initialRouteName: 'AuthLoadingScreen',
+    }
 );
 
 const AppContainer = createAppContainer(Switch);

@@ -11,21 +11,21 @@ const { width } = Dimensions.get('screen');
 const Drawer = (props) => (
   <Block style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
     <Block flex={0.2} style={styles.header}>
-      <TouchableWithoutFeedback onPress={() => props.navigation.navigate('Profile')} >
-        <Block style={styles.profile}>
-          <Image source={{ uri: props.profile.avatar}} style={styles.avatar} />
-          <Text h5 color="white">{props.profile.name}</Text>
-        </Block>
-      </TouchableWithoutFeedback>
-      <Block row>
-        <Block middle style={styles.pro}>
-          <Text size={16} color="white">{props.profile.plan}</Text>
-        </Block>
-        <Text size={16} muted style={styles.seller}>{props.profile.type}</Text>
-        <Text size={16} color={materialTheme.COLORS.WARNING}>
-          {props.profile.rating} <Icon name="shape-star" family="GalioExtra" size={14} />
-        </Text>
-      </Block>
+      {/*<TouchableWithoutFeedback onPress={() => props.navigation.navigate('Profile')} >*/}
+      {/*  <Block style={styles.profile}>*/}
+      {/*    <Image source={{ uri: props.profile.avatar}} style={styles.avatar} />*/}
+      {/*    <Text h5 color="white">{props.profile.name}</Text>*/}
+      {/*  </Block>*/}
+      {/*</TouchableWithoutFeedback>*/}
+      {/*<Block row>*/}
+      {/*  <Block middle style={styles.pro}>*/}
+      {/*    <Text size={16} color="white">{props.profile.plan}</Text>*/}
+      {/*  </Block>*/}
+      {/*  <Text size={16} muted style={styles.seller}>{props.profile.type}</Text>*/}
+      {/*  <Text size={16} color={materialTheme.COLORS.WARNING}>*/}
+      {/*    {props.profile.rating} <Icon name="shape-star" family="GalioExtra" size={14} />*/}
+      {/*  </Text>*/}
+      {/*</Block>*/}
     </Block>
     <Block flex>
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#4B1958',
+    backgroundColor: '#EBA721',
     paddingHorizontal: 28,
     paddingBottom: theme.SIZES.BASE,
     paddingTop: theme.SIZES.BASE * 2,

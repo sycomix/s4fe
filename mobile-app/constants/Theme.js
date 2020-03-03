@@ -24,6 +24,7 @@ export default {
     WHITE: '#FFFFFF',
     BLUE: '#216DB6',
     BLUE_LIGHT: '#0F8ACB',
+    GREY: '#757777',
   },
   SIZES: {
     BLOCK_SHADOW_RADIUS: 2,

@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   activeStyle: {
-    backgroundColor: materialTheme.COLORS.ACTIVE,
+    backgroundColor: materialTheme.COLORS.PRIMARY,
     borderRadius: 4,
   },
   shadow: {

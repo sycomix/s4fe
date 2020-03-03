@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform } from 'react-native';
+import {StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform, Animated, AsyncStorage} from 'react-native';
 import {Block, Button, Text, theme} from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
-
-import { Icon } from '../../components';
+import {Icon, Item} from '../../components';
 import { Images, materialTheme } from '../../constants';
 import { HeaderHeight } from "../../constants/utils";
+import {API} from "../../utils/api";
+import {Axios} from '../../utils/axios'
 
 const { height, width } = Dimensions.get('screen');
 const thumbMeasure = (width - 48 - 32) / 3;
@@ -14,11 +15,81 @@ export default class UserProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userData: {}
+            userData: {},
+            items: []
         }
-
-        this.state.userData = this.props.navigation.getParam('userData')
+        // this.state.userData = this.props.navigation.getParam('userData')
     }
+
+    animatedValue = new Animated.Value(0);
+
+    componentDidMount() {
+        this.getUserData()
+        console.log('user profile mounted')
+        this.fetchItems()
+    }
+
+    getUserData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('userData');
+            console.log('USER DATA', value)
+            if (value !== null) {
+                // value previously stored
+                this.setState({userData: JSON.parse(value)})
+                console.log('USER DATA', this.state.userData)
+            }
+        } catch (e) {
+            // error reading value
+        }
+    };
+
+    fetchItems() {
+        Axios.get(API.ITEMS)
+            .then(res => {
+                this.setState({items: res.data})
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
+
+    renderResult = (result) => {
+        const opacity = this.animatedValue.interpolate({
+            inputRange: [0, 1],
+            outputRange: [0.8, 1],
+            extrapolate: 'clamp',
+        });
+
+        console.log('result', result)
+        return (
+            <Animated.View style={{ width: width - theme.SIZES.BASE * 2, opacity }}>
+                <Item product={result} horizontal />
+            </Animated.View>
+        )
+    }
+
+    renderResults = () => {
+        const { items } = this.state;
+        return (
+            <Block style={{paddingTop: theme.SIZES.BASE * 0.2}}>
+                {items.map(item => this.renderResult(item))}
+            </Block>
+        )
+    }
+
+    logout = async () => {
+        console.log('logout')
+        try {
+            await AsyncStorage.removeItem('tokenData')
+                .then(() => {
+                    this.props.navigation.navigate('PhoneNumber')
+                });
+        } catch (e) {
+            // Error saving data
+            console.log('logout', e)
+        }
+    };
+
     render() {
         const { navigation } = this.props;
         console.log('state', this.state.userData)
@@ -37,7 +108,7 @@ export default class UserProfile extends React.Component {
                                 <Block>
                                     <Text color="white" size={16} muted style={styles.seller}>
                                         <Icon name="envelope" family="font-awesome" color={theme.COLORS.MUTED} size={16} />
-                                        {this.state.userData.email}
+                                        {/*{this.state.userDataa.email}*/}
                                     </Text>
                                     {/*<Text size={16} color={materialTheme.COLORS.WARNING}>*/}
                                     {/*    4.8 <Icon name="shape-star" family="GalioExtra" size={14} />*/}
@@ -54,52 +125,47 @@ export default class UserProfile extends React.Component {
                         <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,1)']} style={styles.gradient} />
                     </Block>
                 </ImageBackground>
+
                 <Block flex={1}>
-
-                        <Block center style={styles.bottom}>
-                            <Button
-                                shadowless
-                                style={styles.button}
-                                color={materialTheme.COLORS.PRIMARY}
-                                onPress={() => navigation.navigate('PhoneNumber')}
-                            >
-                                <Text>SIGN OUT</Text>
-                            </Button>
-
+                    <Block style={styles.options}>
+                        <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
+                            <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>
+                                <Block middle>
+                                    <Text bold size={12} style={{marginBottom: 8}}>
+                                        {this.state.items.length || 0}
+                                    </Text>
+                                    <Text muted size={12}>Total Items</Text>
+                                </Block>
+                                <Block middle>
+                                    <Text bold size={12} style={{marginBottom: 8}}>0</Text>
+                                    <Text muted size={12}>Lost Items</Text>
+                                </Block>
+                                <Block middle>
+                                    <Text bold size={12} style={{marginBottom: 8}}>0</Text>
+                                    <Text muted size={12}>Stolen Items</Text>
+                                </Block>
+                            </Block>
+                            <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
+                                <Text size={16}>Items</Text>
+                                <Text size={12} color={materialTheme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('AddItem')}>Add Item</Text>
+                            </Block>
+                            <Block flex center style={styles.searchContainer}>
+                                {this.renderResults()}
+                            </Block>
+                        </ScrollView>
                     </Block>
-
-                    {/*<Block style={styles.options}>*/}
-                    {/*    /!*<ScrollView vertical={true} showsVerticalScrollIndicator={false}>*!/*/}
-                    {/*    /!*    <Block row space="between" style={{ padding: theme.SIZES.BASE, }}>*!/*/}
-                    {/*    /!*        <Block middle>*!/*/}
-                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>36</Text>*!/*/}
-                    {/*    /!*            <Text muted size={12}>Orders</Text>*!/*/}
-                    {/*    /!*        </Block>*!/*/}
-                    {/*    /!*        <Block middle>*!/*/}
-                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>5</Text>*!/*/}
-                    {/*    /!*            <Text muted size={12}>Bids & Offers</Text>*!/*/}
-                    {/*    /!*        </Block>*!/*/}
-                    {/*    /!*        <Block middle>*!/*/}
-                    {/*    /!*            <Text bold size={12} style={{marginBottom: 8}}>2</Text>*!/*/}
-                    {/*    /!*            <Text muted size={12}>Messages</Text>*!/*/}
-                    {/*    /!*        </Block>*!/*/}
-                    {/*    /!*    </Block>*!/*/}
-                    {/*    /!*    <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>*!/*/}
-                    {/*    /!*        <Text size={16}>Recently viewed</Text>*!/*/}
-                    {/*    /!*        <Text size={12} color={theme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('Home')}>View All</Text>*!/*/}
-                    {/*    /!*    </Block>*!/*/}
-                    {/*    /!*    <Block row space="between" style={{ flexWrap: 'wrap' }} >*!/*/}
-                    {/*    /!*        {Images.Viewed.map((img, imgIndex) => (*!/*/}
-                    {/*    /!*            <Image*!/*/}
-                    {/*    /!*                source={{ uri: img }}*!/*/}
-                    {/*    /!*                key={`viewed-${img}`}*!/*/}
-                    {/*    /!*                resizeMode="cover"*!/*/}
-                    {/*    /!*                style={styles.thumb}*!/*/}
-                    {/*    /!*            />*!/*/}
-                    {/*    /!*        ))}*!/*/}
-                    {/*    /!*    </Block>*!/*/}
-                    {/*    /!*</ScrollView>*!/*/}
-                    {/*</Block>*/}
+                    {/* Singout */}
+                    <Block center style={styles.bottom}>
+                        <Button
+                            shadowless
+                            size='small'
+                            style={styles.button}
+                            color={materialTheme.COLORS.PRIMARY}
+                            onPress={() => this.logout()}
+                        >
+                            <Text>SIGN OUT</Text>
+                        </Button>
+                    </Block>
                 </Block>
             </Block>
         );
@@ -179,6 +245,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
         marginBottom: 36
-    }
+    },
+    searchContainer: {
+        width: width,
+        paddingHorizontal: theme.SIZES.BASE,
+    },
 
 });

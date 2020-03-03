@@ -6,6 +6,7 @@ import { Block, GalioProvider } from 'galio-framework';
 
 import Screens from './navigation/Screens';
 import { Images, materialTheme } from './constants/';
+import AuthLoadingScreen from "./screens/Auth/AuthLoadingScreen";
 
 const assetImages = [
   Images.Profile,
@@ -59,7 +60,8 @@ export default class App extends React.Component {
         <GalioProvider theme={materialTheme}>
           <Block flex>
             {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <Screens />
+            <Screens/>
+
           </Block>
         </GalioProvider>
       );

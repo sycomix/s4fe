@@ -70,7 +70,7 @@ export default class Product extends React.Component {
             outputRange: [0.5, 1, 0.5],
             extrapolate: 'clamp'
           });
-          
+
           const width = position.interpolate({
             inputRange: [i - 1, i, i + 1],
             outputRange: [8, 18, 8],
@@ -100,14 +100,14 @@ export default class Product extends React.Component {
     const { navigation } = this.props;
     return (
       <Block style={styles.chatContainer}>
-        <Button
-          radius={28}
-          opacity={0.9}
-          style={styles.chat}
-          color={materialTheme.COLORS.BUTTON_COLOR}
-          onPress={() => navigation.navigate('Chat')}>
-          <Icon size={16} family="GalioExtra" name="chat-33" color="white" />
-        </Button>
+        {/*<Button*/}
+        {/*  radius={28}*/}
+        {/*  opacity={0.9}*/}
+        {/*  style={styles.chat}*/}
+        {/*  color={materialTheme.COLORS.BUTTON_COLOR}*/}
+        {/*  onPress={() => navigation.navigate('Chat')}>*/}
+        {/*  <Icon size={16} family="GalioExtra" name="chat-33" color="white" />*/}
+        {/*</Button>*/}
       </Block>
     )
   }
@@ -131,51 +131,51 @@ export default class Product extends React.Component {
             <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
               <Block style={{ paddingHorizontal: theme.SIZES.BASE, paddingTop: theme.SIZES.BASE * 2 }}>
                 <Text size={28} style={{ paddingBottom: 24 }}>{product.title}</Text>
-                <Block row space="between">
-                  <Block row>
-                    <Image source={{ uri: Images.Profile }} style={styles.avatar} />
-                    <Block>
-                      <Text size={14}>Rachel Brown</Text>
-                      <Text size={14} muted>Pro Seller</Text>
-                    </Block>
-                  </Block>
-                  <Text size={18} bold>$735</Text>
-                </Block>
+                {/*<Block row space="between">*/}
+                {/*  <Block row>*/}
+                {/*    <Image source={{ uri: Images.Profile }} style={styles.avatar} />*/}
+                {/*    <Block>*/}
+                {/*      <Text size={14}>Rachel Brown</Text>*/}
+                {/*      <Text size={14} muted>Pro Seller</Text>*/}
+                {/*    </Block>*/}
+                {/*  </Block>*/}
+                {/*  <Text size={18} bold>$735</Text>*/}
+                {/*</Block>*/}
               </Block>
-              <Block style={{ padding: theme.SIZES.BASE }}>
-                <Text size={16}>Size</Text>
-                <Block card style={{ marginTop: 16 }}>
-                  <Block row>
-                    <Block flex middle style={[styles.size, styles.roundTopLeft, selectedSize === 'XS' ? styles.active : null ]}>
-                      {this.renderSize('XS')}
-                    </Block>
-                    <Block flex middle style={[styles.size, selectedSize === 'S' ? styles.active : null, ]}>
-                      {this.renderSize('S')}
-                    </Block>
-                    <Block flex middle style={[styles.size, styles.roundTopRight, selectedSize === 'M' ? styles.active : null, ]}>
-                      {this.renderSize('M')}
-                    </Block>
-                  </Block>
-                  <Block row>
-                    <Block flex middle style={[styles.size, styles.roundBottomLeft, selectedSize === 'L' ? styles.active : null, ]}>
-                      {this.renderSize('L')}
-                    </Block>
-                    <Block flex middle style={[styles.size, { borderBottomWidth: 0 }, selectedSize === 'XL' ? styles.active : null, ]}>
-                      {this.renderSize('XL')}
-                    </Block>
-                    <Block flex middle style={[styles.size, styles.roundBottomRight, selectedSize === '2XL' ? styles.active : null, ]}>
-                      {this.renderSize('2XL')}
-                    </Block>
-                  </Block>
-                </Block>
-                <Button
-                  shadowless
-                  style={styles.addToCart}
-                  color={materialTheme.COLORS.BUTTON_COLOR}
-                  onPress={() => navigation.navigate('Cart')}>
-                  ADD TO CART
-                </Button>
-              </Block>
+              {/*<Block style={{ padding: theme.SIZES.BASE }}>*/}
+              {/*  <Text size={16}>Size</Text>*/}
+              {/*  <Block card style={{ marginTop: 16 }}>*/}
+              {/*    <Block row>*/}
+              {/*      <Block flex middle style={[styles.size, styles.roundTopLeft, selectedSize === 'XS' ? styles.active : null ]}>*/}
+              {/*        {this.renderSize('XS')}*/}
+              {/*      </Block>*/}
+              {/*      <Block flex middle style={[styles.size, selectedSize === 'S' ? styles.active : null, ]}>*/}
+              {/*        {this.renderSize('S')}*/}
+              {/*      </Block>*/}
+              {/*      <Block flex middle style={[styles.size, styles.roundTopRight, selectedSize === 'M' ? styles.active : null, ]}>*/}
+              {/*        {this.renderSize('M')}*/}
+              {/*      </Block>*/}
+              {/*    </Block>*/}
+              {/*    <Block row>*/}
+              {/*      <Block flex middle style={[styles.size, styles.roundBottomLeft, selectedSize === 'L' ? styles.active : null, ]}>*/}
+              {/*        {this.renderSize('L')}*/}
+              {/*      </Block>*/}
+              {/*      <Block flex middle style={[styles.size, { borderBottomWidth: 0 }, selectedSize === 'XL' ? styles.active : null, ]}>*/}
+              {/*        {this.renderSize('XL')}*/}
+              {/*      </Block>*/}
+              {/*      <Block flex middle style={[styles.size, styles.roundBottomRight, selectedSize === '2XL' ? styles.active : null, ]}>*/}
+              {/*        {this.renderSize('2XL')}*/}
+              {/*      </Block>*/}
+              {/*    </Block>*/}
+              {/*  </Block>*/}
+              {/*  <Button*/}
+              {/*    shadowless*/}
+              {/*    style={styles.addToCart}*/}
+              {/*    color={materialTheme.COLORS.BUTTON_COLOR}*/}
+              {/*    onPress={() => navigation.navigate('Cart')}>*/}
+              {/*    ADD TO CART*/}
+              {/*  </Button>*/}
+              {/*</Block>*/}
             </ScrollView>
           </Block>
         </Block>

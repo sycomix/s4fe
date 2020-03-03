@@ -1,8 +1,6 @@
 import React from 'react';
-import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, Image} from 'react-native';
-
+import {Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, Image, AsyncStorage} from 'react-native';
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils"
@@ -12,53 +10,11 @@ import * as Facebook from 'expo-facebook';
 import ValidationComponent from 'react-native-form-validator';
 import ErrorMessage from "../../components/ErrorMessage";
 import { Axios } from '../../utils/axios'
+import RNPickerSelect from 'react-native-picker-select';
+import * as GoogleSignIn from 'expo-google-sign-in';
 
 const countryTelData = require('country-telephone-data')
 const { height, width } = Dimensions.get('window');
-import RNPickerSelect from 'react-native-picker-select';
-
-import * as GoogleSignIn from 'expo-google-sign-in';
-
-
-async function logIn() {
-    try {
-        await Facebook.initializeAsync('151707949234327');
-        const {
-            type,
-            token,
-            expires,
-            permissions,
-            declinedPermissions,
-        } = await Facebook.logInWithReadPermissionsAsync({
-            permissions: ['public_profile', 'email'],
-        });
-        if (type === 'success') {
-            // // Get the user's name using Facebook's Graph API
-            // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-            // const facebookID = await response.json()
-
-            // Send ID to the API
-            const formData = {
-                access_token: token
-            }
-            console.log(formData)
-            Axios.post(API.FACEBOOK, formData)
-                .then((res) => {
-                    console.log('sent to api', res.data)
-                })
-                .catch(e => {
-                    console.log('err', e.response)
-                })
-            // console.log('data', facebookID)
-        } else {
-            // type === 'cancel'
-        }
-    } catch ({ message }) {
-        alert(`Facebook Login Error: ${message}`);
-    }
-}
-
-
 
 export default class PhoneNumber extends ValidationComponent {
     constructor(props){
@@ -72,6 +28,57 @@ export default class PhoneNumber extends ValidationComponent {
         }
 
         this.picker = React.createRef() // make the ref
+    }
+
+    // Store data
+    storeData = async (key, value) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (e) {
+            // saving error
+            console.log(e);
+        }
+    };
+
+    async logIn() {
+        try {
+            await Facebook.initializeAsync('151707949234327');
+            const {
+                type,
+                token,
+                expires,
+                permissions,
+                declinedPermissions,
+            } = await Facebook.logInWithReadPermissionsAsync({
+                permissions: ['public_profile', 'email'],
+            });
+            if (type === 'success') {
+                // // Get the user's name using Facebook's Graph API
+                // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+                // const facebookID = await response.json()
+
+                // Send ID to the API
+                const formData = {
+                    access_token: token
+                }
+                console.log(formData)
+                Axios.post(API.FACEBOOK, formData)
+                    .then((res) => {
+                        console.log('sent to api', res.data)
+                        this.props.navigation.navigate('UserProfile', {
+                            userData: res.data
+                        })
+                    })
+                    .catch(e => {
+                        console.log('err', e)
+                    })
+                // console.log('data', facebookID)
+            } else {
+                // type === 'cancel'
+            }
+        } catch ({ message }) {
+            alert(`Facebook Login Error: ${message}`);
+        }
     }
 
 
@@ -266,7 +273,7 @@ export default class PhoneNumber extends ValidationComponent {
                             <Block flex middle center>
                                 <Button
                                     round
-                                    onPress={() => logIn()}
+                                    onPress={() => this.logIn()}
                                     color={theme.COLORS.FACEBOOK}
                                     shadowless
                                     iconColor={theme.COLORS.WHITE}

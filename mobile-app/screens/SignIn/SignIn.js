@@ -6,8 +6,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 import {Axios} from '../../utils/axios';
-import {API, BASE_API} from "../../utils/api";
+import {API} from "../../utils/api";
 import ValidationComponent from 'react-native-form-validator';
+import { AsyncStorage } from "react-native";
 
 const { height, width } = Dimensions.get('window');
 
@@ -20,6 +21,16 @@ export default class SignIn extends ValidationComponent {
             dataLoading: false
         }
     }
+
+    // Store data
+    storeData = async (key, value) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (e) {
+            // saving error
+            console.log(e);
+        }
+    };
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
@@ -40,7 +51,6 @@ export default class SignIn extends ValidationComponent {
         });
         if (isValid) {
             this.setState({ dataLoading: true })
-            console.log('login')
             const formData = {
                 email: this.state.email,
                 password: this.state.password
@@ -49,6 +59,8 @@ export default class SignIn extends ValidationComponent {
                 .then((res) => {
                     console.log('res', res)
                     this.setState({ dataLoading: false })
+                    this.storeData('tokenData', res.data.key)
+                    this.storeData('userData', JSON.stringify(res.data))
                     this.goToScreen('UserProfile', res.data)
                 })
                 .catch(err => {
@@ -61,9 +73,7 @@ export default class SignIn extends ValidationComponent {
                     // Alert.alert('Warning!', 'Something went wrong!')
                 })
         }
-
     }
-
 
     render() {
         const { navigation } = this.props;
