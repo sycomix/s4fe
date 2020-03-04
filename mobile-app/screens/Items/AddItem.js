@@ -123,10 +123,9 @@ export default class AddItem extends ValidationComponent {
             color: '#cacaca'
         };
         return (
-            <Block flex style={styles.group}>
-
+            <Block flex>
                 <Text muted size={16} style={styles.title}>Insert item title and chose the category</Text>
-                <Block style={{paddingLeft: 20, paddingRight: 20}}>
+                <Block style={{paddingLeft: 20, paddingRight: 20, marginTop: height * 0.05}}>
                     <Input
                         borderless
                         placeholder="Item title"
@@ -137,13 +136,14 @@ export default class AddItem extends ValidationComponent {
                         onChangeText={(value) => {this.handleTitle(value)}}
                     />
 
-                    <TextInput
+                    <Input
                         borderless
                         multiline={true}
                         numberOfLines={6}
                         placeholder="Item description"
                         bgColor="transparent"
-                        style={[styles.textInput, styles.inputDefault]}
+                        color={materialTheme.COLORS.CAPTION}
+                        style={[styles.input, styles.inputDefault]}
                         placeholderTextColor="#cacaca"
                         onChangeText={(value) => {this.handleDescription(value)}}
                     />
