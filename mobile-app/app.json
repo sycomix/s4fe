@@ -24,9 +24,10 @@
       "**/*"
     ],
     "ios": {
+      "icon": "./assets/images/s4fe-white-bg.png",
       "supportsTablet": true,
-      "bundleIdentifier": "io.s4fe.app",
-      "buildNumber": "1.0.3",
+      "bundleIdentifier": "com.s4fe.S4FE",
+      "buildNumber": "1.0.4",
       "config": {
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.689677381423-citoqd91eqgnad79h68el1j8qj2nid94"

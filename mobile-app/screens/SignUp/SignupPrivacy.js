@@ -79,7 +79,7 @@ export default class SignupPrivacy extends React.Component {
                                     letterSpacing: 1,
                                     padding: 20
                                 }}>
-                                    By continuing, you agree to S3FE's Terms of Use and Privacy Policy
+                                    By continuing, you agree to S4FE's Terms of Use and Privacy Policy
                                 </Text>
                             </Block>
                             <Block row space="between">
