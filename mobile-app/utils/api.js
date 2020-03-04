@@ -5,4 +5,5 @@ export const API = {
     FORGOT_PASSWORD: 'rest-auth/password/reset/',
     FACEBOOK: 'rest-auth/facebook/',
     ITEMS: 'api/v1/items/',
+    CATEGORIES: 'api/v1/categories/',
 };

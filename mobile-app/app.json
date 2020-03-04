@@ -25,17 +25,19 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "host.exp.Exponent",
+      "bundleIdentifier": "io.s4fe.app",
       "buildNumber": "1.0.3",
       "config": {
         "googleSignIn": {
-          "reservedClientId": "host.exp.Exponent"
+          "reservedClientId": "com.googleusercontent.apps.689677381423-citoqd91eqgnad79h68el1j8qj2nid94"
         }
-      }
+      },
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "io.s4fe.app",
-      "versionCode": 1
+      "versionCode": 1,
+      "googleServicesFile": "./google-services.json"
     },
     "facebookScheme": "fb151707949234327",
     "facebookAppId": "151707949234327",

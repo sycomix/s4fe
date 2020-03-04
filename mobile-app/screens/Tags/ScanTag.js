@@ -27,7 +27,7 @@ const thumbMeasure = (width - 48 - 32) / 3;
 const cardWidth = width - (theme.SIZES.BASE * 2);
 
 
-export default class AddItem extends ValidationComponent {
+export default class ScanTag extends ValidationComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -87,6 +87,7 @@ export default class AddItem extends ValidationComponent {
                 title: this.state.title,
                 category: this.state.selectedCategory,
                 desc: this.state.description,
+                user: this.state.userId,
                 key: hash(Math.round(Math.random()*10000000000))
             }
             console.log('forma ', formData)
@@ -125,55 +126,9 @@ export default class AddItem extends ValidationComponent {
         return (
             <Block flex style={styles.group}>
 
-                <Text muted size={16} style={styles.title}>Insert item title and chose the category</Text>
-                <Block style={{paddingLeft: 20, paddingRight: 20}}>
-                    <Input
-                        borderless
-                        placeholder="Item title"
-                        bgColor="transparent"
-                        color={materialTheme.COLORS.CAPTION}
-                        style={[styles.input, styles.inputDefault]}
-                        placeholderTextColor="#cacaca"
-                        onChangeText={(value) => {this.handleTitle(value)}}
-                    />
-
-                    <TextInput
-                        borderless
-                        multiline={true}
-                        numberOfLines={6}
-                        placeholder="Item description"
-                        bgColor="transparent"
-                        style={[styles.textInput, styles.inputDefault]}
-                        placeholderTextColor="#cacaca"
-                        onChangeText={(value) => {this.handleDescription(value)}}
-                    />
-
-
-                    <Block style={[styles.categoriesInput]}>
-                        <RNPickerSelect
-                            placeholder={placeholder}
-                            style={pickerSelectStyles}
-                            onValueChange={this.handleCategoriesSelect}
-                            items={this.state.categories}
-                        >
-                        </RNPickerSelect>
-                    </Block>
-                    <Block left>
-                        <Text style={{fontWeight: 'bold', padding: 15, color: materialTheme.COLORS.ERROR}}>
-                            {this.getErrorMessages()}
-                        </Text>
-                    </Block>
-
-                    <Block flex style={{ marginTop: height * 0.09 }} center>
-                        {this.state.dataLoading ?
-                            <ActivityIndicator size="large" color={materialTheme.COLORS.PRIMARY} /> :
-                        <Button
-                            shadowless
-                            onPress={() => {this.saveItem()}}
-                        >Save
-                        </Button> }
-                    </Block>
-                </Block>
+                <Text muted size={16} style={styles.title}>
+                    Scan the tag feature is not yet implemented
+                </Text>
             </Block>
         )
     }

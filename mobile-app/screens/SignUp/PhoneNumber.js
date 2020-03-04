@@ -65,6 +65,8 @@ export default class PhoneNumber extends ValidationComponent {
                 Axios.post(API.FACEBOOK, formData)
                     .then((res) => {
                         console.log('sent to api', res.data)
+                        this.storeData('tokenData', res.data.key)
+                        this.storeData('userData', JSON.stringify(res.data))
                         this.props.navigation.navigate('UserProfile', {
                             userData: res.data
                         })
@@ -85,7 +87,6 @@ export default class PhoneNumber extends ValidationComponent {
     initAsync = async () => {
         await GoogleSignIn.initAsync({
             // You may ommit the clientId when the firebase `googleServicesFile` is configured
-            clientId: 'host.exp.Exponent',
         });
         this._syncUserWithStateAsync();
     };
@@ -181,10 +182,9 @@ export default class PhoneNumber extends ValidationComponent {
     render() {
         const { navigation } = this.props;
         const placeholder = {
-            color: 'white',
-            paddingTop: 10,
-            paddingBottom: 15,
-            paddingLeft: 15,
+            label: 'Select country...',
+            value: null,
+            color: '#cacaca'
         };
 
         return (
@@ -222,6 +222,7 @@ export default class PhoneNumber extends ValidationComponent {
                         <Block center>
                             <Block style={[styles.countryInput]}>
                                 <RNPickerSelect
+                                    placeholder={placeholder}
                                     style={pickerSelectStyles}
                                     onValueChange={this.handleCountrySelect}
                                     items={this.state.countriesList}
@@ -286,7 +287,7 @@ export default class PhoneNumber extends ValidationComponent {
                             <Block flex middle center>
                                 <Button
                                     round
-                                    onPress={() => Alert.alert('Not implemented')}
+                                    onPress={() => this.onPress()}
                                     color='#DB4437'
                                     shadowless
                                     iconColor={theme.COLORS.WHITE}

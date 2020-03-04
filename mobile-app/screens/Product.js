@@ -45,8 +45,8 @@ export default class Product extends React.Component {
             onPress={() => navigation.navigate('Gallery', { images: productImages, index })}>
             <Image
               resizeMode="cover"
-              source={{ uri: image }}
-              style={{ width, height: iPhoneX ? width + 32 : width }}
+              source={{ uri: 'https://demos.creative-tim.com/material-kit-pro-react-native/assets/img/phone2.png' }}
+              style={{ width, height: iPhoneX ? width + 32 : width, backgroundColor: materialTheme.COLORS.PRIMARY }}
             />
           </TouchableWithoutFeedback>
         ))}
@@ -131,16 +131,16 @@ export default class Product extends React.Component {
             <ScrollView vertical={true} showsVerticalScrollIndicator={false}>
               <Block style={{ paddingHorizontal: theme.SIZES.BASE, paddingTop: theme.SIZES.BASE * 2 }}>
                 <Text size={28} style={{ paddingBottom: 24 }}>{product.title}</Text>
-                {/*<Block row space="between">*/}
-                {/*  <Block row>*/}
-                {/*    <Image source={{ uri: Images.Profile }} style={styles.avatar} />*/}
-                {/*    <Block>*/}
-                {/*      <Text size={14}>Rachel Brown</Text>*/}
-                {/*      <Text size={14} muted>Pro Seller</Text>*/}
-                {/*    </Block>*/}
-                {/*  </Block>*/}
-                {/*  <Text size={18} bold>$735</Text>*/}
-                {/*</Block>*/}
+                <Block row space="between">
+                  <Block row>
+                    {/*<Image source={{ uri: Images.Profile }} style={styles.avatar} />*/}
+                    <Block>
+                      {/*<Text size={14}>Rachel Brown</Text>*/}
+                      <Text size={14} muted>{product.desc}</Text>
+                    </Block>
+                  </Block>
+                  {/*<Text size={18} bold>$735</Text>*/}
+                </Block>
               </Block>
               {/*<Block style={{ padding: theme.SIZES.BASE }}>*/}
               {/*  <Text size={16}>Size</Text>*/}

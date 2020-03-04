@@ -1,5 +1,14 @@
 import React from 'react';
-import {StyleSheet, Dimensions, ScrollView, Image, ImageBackground, Platform, Animated, AsyncStorage} from 'react-native';
+import {
+    StyleSheet,
+    Dimensions,
+    ScrollView,
+    ImageBackground,
+    Platform,
+    Animated,
+    AsyncStorage,
+    ActivityIndicator
+} from 'react-native';
 import {Block, Button, Text, theme} from 'galio-framework';
 import { LinearGradient } from 'expo-linear-gradient';
 import {Icon, Item} from '../../components';
@@ -24,12 +33,20 @@ export default class UserProfile extends React.Component {
     animatedValue = new Animated.Value(0);
 
     componentDidMount() {
-        this.getUserData()
-        console.log('user profile mounted')
-        this.fetchItems()
+        this.focusListener = this.props.navigation.addListener(
+            'didFocus', () => {
+                console.log('user profile focused')
+                this.getUserData()
+                this.fetchItems()
+            }
+        );
     }
 
-    getUserData = async () => {
+    componentWillUnmount() {
+        this.focusListener.remove();
+    }
+
+    getUserData  = async () => {
         try {
             const value = await AsyncStorage.getItem('userData');
             console.log('USER DATA', value)
@@ -43,13 +60,21 @@ export default class UserProfile extends React.Component {
         }
     };
 
+    goToScreen() {
+        this.props.navigation.navigate('AddItem', {
+            userId: this.state.userData.id
+        })
+    }
     fetchItems() {
+        this.setState({dataLoading: true})
         Axios.get(API.ITEMS)
             .then(res => {
-                this.setState({items: res.data})
+                console.log('items fetched', res.data)
+                this.setState({items: res.data, dataLoading: false})
             })
             .catch(e => {
                 console.log(e)
+                this.setState({dataLoading: false})
             })
     }
 
@@ -60,7 +85,6 @@ export default class UserProfile extends React.Component {
             extrapolate: 'clamp',
         });
 
-        console.log('result', result)
         return (
             <Animated.View style={{ width: width - theme.SIZES.BASE * 2, opacity }}>
                 <Item product={result} horizontal />
@@ -77,22 +101,8 @@ export default class UserProfile extends React.Component {
         )
     }
 
-    logout = async () => {
-        console.log('logout')
-        try {
-            await AsyncStorage.removeItem('tokenData')
-                .then(() => {
-                    this.props.navigation.navigate('PhoneNumber')
-                });
-        } catch (e) {
-            // Error saving data
-            console.log('logout', e)
-        }
-    };
-
     render() {
         const { navigation } = this.props;
-        console.log('state', this.state.userData)
         return (
             <Block flex style={styles.profile}>
                 <ImageBackground
@@ -147,24 +157,14 @@ export default class UserProfile extends React.Component {
                             </Block>
                             <Block row space="between" style={{ paddingVertical: 16, alignItems: 'baseline' }}>
                                 <Text size={16}>Items</Text>
-                                <Text size={12} color={materialTheme.COLORS.PRIMARY} onPress={() => this.props.navigation.navigate('AddItem')}>Add Item</Text>
+                                <Text size={12} color={materialTheme.COLORS.PRIMARY} onPress={() => this.goToScreen()}>Add Item</Text>
                             </Block>
+                            {this.state.dataLoading ?
+                                <ActivityIndicator size="large" color={materialTheme.COLORS.PRIMARY} />:
                             <Block flex center style={styles.searchContainer}>
                                 {this.renderResults()}
-                            </Block>
+                            </Block> }
                         </ScrollView>
-                    </Block>
-                    {/* Singout */}
-                    <Block center style={styles.bottom}>
-                        <Button
-                            shadowless
-                            size='small'
-                            style={styles.button}
-                            color={materialTheme.COLORS.PRIMARY}
-                            onPress={() => this.logout()}
-                        >
-                            <Text>SIGN OUT</Text>
-                        </Button>
                     </Block>
                 </Block>
             </Block>

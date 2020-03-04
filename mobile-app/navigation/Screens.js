@@ -1,9 +1,14 @@
 import React from 'react';
 import { Easing, Animated } from 'react-native';
-import { createSwitchNavigator, createStackNavigator, createDrawerNavigator, createAppContainer } from 'react-navigation';
-
+import {
+  createSwitchNavigator,
+  createStackNavigator,
+  createDrawerNavigator,
+  createAppContainer,
+  createBottomTabNavigator
+} from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 import { Block, Text, theme } from "galio-framework";
-
 import OnboardingScreen from '../screens/Onboarding';
 import HomeScreen from '../screens/Home';
 import WomanScreen from '../screens/Woman';
@@ -11,20 +16,15 @@ import ManScreen from '../screens/Man';
 import KidsScreen from '../screens/Kids';
 import NewCollectionScreen from '../screens/NewCollection';
 import DealsScreen from '../screens/Deals';
-
 import CategoriesScreen from '../screens/Categories';
 import CategoryScreen from '../screens/Category';
 import ProductScreen from '../screens/Product';
 import GalleryScreen from '../screens/Gallery';
 import ChatScreen from '../screens/Chat';
-
 import CartScreen from '../screens/Cart';
-// import SignInScreen from '../screens/SignIn';
 import SignUpScreen from '../screens/SignUp';
-
 import SearchScreen from '../screens/Search';
 import ComponentsScreen from '../screens/Components';
-
 import ProfileScreen from '../screens/Profile';
 import SettingsScreen from '../screens/Settings';
 import NotificationsScreen from '../screens/Notifications';
@@ -32,7 +32,6 @@ import PrivacyScreen from '../screens/Privacy';
 import AboutScreen from '../screens/About';
 import AgreementScreen from '../screens/Agreement';
 import AuthLoadingScreen from "../screens/Auth/AuthLoadingScreen";
-// Signup
 import PhoneNumberScreen from "../screens/SignUp/PhoneNumber";
 import PhoneVerificationCodeScreen from "../screens/SignUp/PhoneVerificationCode";
 import SignupEmailScreen from "../screens/SignUp/SignupEmail";
@@ -42,15 +41,14 @@ import SignupUserInfoScreen from "../screens/SignUp/SignupUserInfo";
 import PrivacyPolicyScreen from "../screens/PrivacyPolicy";
 import TermsAndConditionsScreen from "../screens/TermsAndContitions";
 import UserProfileScreen from "../screens/User/UserProfile";
-
-// Signin
 import SignInScreen from '../screens/SignIn/SignIn'
-
 import Menu from './Menu';
 import { Header, Drawer } from '../components/';
 import { tabs } from '../constants/';
 import ForgotPassword from "../screens/SignIn/ForgotPassword";
 import AddItemScreen from "../screens/Items/AddItem";
+import S4feSettings from "../screens/S4feSettings";
+import ScanTagScreen from "../screens/Tags/ScanTag";
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -91,7 +89,6 @@ const ProfileStack = createStackNavigator({
   UserProfile: {
     screen: UserProfileScreen,
     navigationOptions: ({ navigation }) => ({
-      header: <Header white transparent title="Profile" navigation={navigation} />,
       headerTransparent: true,
     })
   },
@@ -112,8 +109,8 @@ const ProfileStack = createStackNavigator({
   AddItem: {
     screen: AddItemScreen,
     navigationOptions: ({navigation}) => ({
-      header: <Header back black title="Add Item" navigation={navigation} />,
-      headerTransparent: true,
+      title: 'Add item',
+      // headerTransparent: true,
     })
   },
   Chat: {
@@ -135,9 +132,10 @@ const ProfileStack = createStackNavigator({
 
 const SettingsStack = createStackNavigator({
   Settings: {
-    screen: SettingsScreen,
+    screen: S4feSettings,
     navigationOptions: ({ navigation }) => ({
-      header: <Header title="Settings" navigation={navigation} />,
+      header: <Header back={true} title="Settings" />,
+      headerTransparent: true,
     })
   },
   Agreement: {
@@ -520,15 +518,37 @@ const AuthStack = createStackNavigator({
   },
 })
 
-const HomeStack = createDrawerNavigator({
+const TagStact = createStackNavigator({
+  ScanTag: {
+    screen: ScanTagScreen,
+    navigationOptions: ({ navigation }) => ({
+      header: <Header back={true} title="Scan the Tag" />,
+      headerTransparent: true,
+    })
+  },
+})
+const HomeStack = createBottomTabNavigator({
 
     UserProfile: {
       screen: ProfileStack,
-      navigationOptions: (navOpt) => ({
-        drawerLabel: ({focused}) => (
-            <Drawer focused={focused} screen="UserProfile" title="Profile" />
-        ),
-      }),
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-home" size={25} color={tintColor} />
+      }
+    },
+    ScanDevice: {
+      screen: ScanTagScreen,
+      navigationOptions: {
+        tabBarLabel: 'Scan Tag',
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-qr-scanner" size={25} color={tintColor} />
+      }
+    },
+    Settings: {
+      screen: SettingsStack,
+      navigationOptions: {
+        tabBarLabel: 'Settings',
+        tabBarIcon: ({ tintColor }) => <Ionicons name="ios-settings" size={25} color={tintColor} />
+      }
     },
 
   // Home: {
