@@ -2,21 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mobile-app/assets/images/icon-bak.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/S4feSettings.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mobile-app/screens/Tags/ScanTag.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/assets/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/assets/images/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/components/Header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/constants/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/constants/Theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/navigation/Screens.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile-app/screens/Items/AddItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/Items/AddItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/Product.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/Product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneNumber.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/screens/User/UserProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/User/UserProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/utils/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/utils/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/S4feSettings.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/S4feSettings.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +112,7 @@
       <workItem from="1583305647599" duration="66000" />
       <workItem from="1583305729055" duration="22000" />
       <workItem from="1583305766687" duration="1155000" />
-      <workItem from="1583307041667" duration="18682000" />
+      <workItem from="1583307041667" duration="20869000" />
     </task>
     <servers />
   </component>
@@ -227,7 +215,7 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2544" y="245" key="run.anything.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583323363923" />
-    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup" timestamp="1583328516457">
+    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup" timestamp="1583332150732">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="545" y="219" width="672" height="660" key="search.everywhere.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1582834501461" />
@@ -235,6 +223,6 @@
     <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582639396258" />
     <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582205478523" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582021948833" />
-    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583328516456" />
+    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583332150732" />
   </component>
 </project>

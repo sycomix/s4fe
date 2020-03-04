@@ -1,8 +1,18 @@
 import React from 'react';
-import {StyleSheet, Switch, FlatList, Platform, TouchableOpacity, ScrollView, AsyncStorage} from "react-native";
+import {
+  StyleSheet,
+  Switch,
+  FlatList,
+  Platform,
+  TouchableOpacity,
+  ScrollView,
+  AsyncStorage,
+  Dimensions,
+} from "react-native";
 import {Block, Text, theme, Icon, Button} from "galio-framework";
-
 import materialTheme from '../constants/Theme';
+
+const { height } = Dimensions.get('window');
 
 export default class Settings extends React.Component {
   state = {};
@@ -107,6 +117,7 @@ const styles = StyleSheet.create({
     paddingVertical: theme.SIZES.BASE / 3,
   },
   title: {
+    marginTop: Platform.OS === 'android' ? 0 : height *0.09,
     paddingTop: theme.SIZES.BASE,
     paddingBottom: theme.SIZES.BASE / 2,
   },

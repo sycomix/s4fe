@@ -126,7 +126,7 @@ export default class AddItem extends ValidationComponent {
             <Block flex style={styles.group}>
 
                 <Text muted size={16} style={styles.title}>Insert item title and chose the category</Text>
-                <Block style={{paddingLeft: 20, paddingRight: 20}}>
+                <Block style={{paddingLeft: 20, paddingRight: 20, marginTop: height * 0.05}}>
                     <Input
                         borderless
                         placeholder="Item title"
