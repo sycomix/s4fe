@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 import ValidationComponent from 'react-native-form-validator';
+import {API} from "../../utils/api";
+import {Axios} from '../../utils/axios'
 
 const { height, width } = Dimensions.get('window');
 
@@ -24,6 +26,27 @@ export default class PhoneNumber extends ValidationComponent {
         this.setState({ email: value });
     }
 
+    sendEmail() {
+        const formData = {
+            email: this.state.email
+        }
+        Axios.post(API.REGISTRATION, formData)
+            .then(() => {
+                console.log('success')
+            })
+            .catch(e => {
+                console.log(e)
+                console.log(e.response)
+                const error = e.response.data
+                if (error.email) {
+                    Alert.alert('Error!', error.email[0])
+                } else {
+                    console.log('go to next screen')
+                    this.goToScreen('SignupPassword')
+                }
+            })
+    }
+
     handleNext() {
         const isValid =  this.validate({
             phoneNumber: {numbers: true, required: true},
@@ -31,7 +54,7 @@ export default class PhoneNumber extends ValidationComponent {
             email: {email: true, required: true},
         });
         if (isValid) {
-            this.goToScreen('SignupPassword')
+            this.sendEmail()
         }
     }
 
@@ -41,7 +64,6 @@ export default class PhoneNumber extends ValidationComponent {
         })
     }
     render() {
-        console.log('this.state', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient

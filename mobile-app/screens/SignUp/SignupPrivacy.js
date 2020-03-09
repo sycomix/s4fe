@@ -1,12 +1,10 @@
 import React from 'react';
-import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-
+import {Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform, AsyncStorage} from 'react-native';
 import { Block, Button, Input, Text, theme } from 'galio-framework';
-
 import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
-import {API, API_ENDPOINT, BASE_API} from "../../utils/api";
+import {API} from "../../utils/api";
 import {Axios} from '../../utils/axios'
 
 const { height, width } = Dimensions.get('window');
@@ -25,6 +23,16 @@ export default class SignupPrivacy extends React.Component {
         }
 
     }
+
+    // Store data
+    storeData = async (key, value) => {
+        try {
+            await AsyncStorage.setItem(key, value);
+        } catch (e) {
+            // saving error
+            console.log(e);
+        }
+    };
 
     handleChange = (name, value) => {
         this.setState({ [name]: value });
@@ -51,16 +59,22 @@ export default class SignupPrivacy extends React.Component {
         Axios.post(`${API.REGISTRATION}`, formData)
             .then(res => {
                 console.log('res user added', res)
+                this.storeData('tokenData', res.data.key)
+                this.storeData('userData', JSON.stringify(res.data))
                 this.goToScreen('UserProfile', res.data)
             })
             .catch(err => {
                 console.log('err', err.response)
-                Alert.alert('Warning!', 'Something went wrong!')
+                const error = err.response
+                if (error.data.otp) {
+                    Alert.alert('Wrong verification code!', 'Make sure that you have entered the correct verification number.')
+                } else {
+                    Alert.alert('Warning!', 'Something went wrong!')
+                }
             })
     }
 
     render() {
-        console.log('state iz signup privacy', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient

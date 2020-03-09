@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 import ValidationComponent from 'react-native-form-validator';
+import {Axios} from "../../utils/axios";
+import {API} from "../../utils/api";
 
 const { height, width } = Dimensions.get('window');
 
@@ -25,6 +27,28 @@ export default class PhoneNumber extends ValidationComponent {
         this.setState({ [name]: value });
     }
 
+    sendPassword() {
+        const formData = {
+            password1: this.state.password,
+            password2: this.state.repeatPassword
+        }
+        Axios.post(API.REGISTRATION, formData)
+            .then(() => {
+                console.log('success')
+            })
+            .catch(e => {
+                console.log(e)
+                console.log(e.response)
+                const error = e.response.data
+                if (error.password1) {
+                    Alert.alert('Error!', error.password1[0])
+                } else {
+                    console.log('go to next screen')
+                    this.goToScreen('SignupUserInfo')
+                }
+            })
+    }
+
     handleNext() {
         const isValid =  this.validate({
             userData: {required: true},
@@ -34,7 +58,8 @@ export default class PhoneNumber extends ValidationComponent {
         const passwordMatch = this.state.password === this.state.repeatPassword
         if (!passwordMatch) { this.setState({passwordDidntMatch: true})}
         if (isValid && passwordMatch) {
-            this.goToScreen('SignupUserInfo')
+            // this.goToScreen('SignupUserInfo')
+            this.sendPassword()
         }
     }
 
@@ -45,7 +70,6 @@ export default class PhoneNumber extends ValidationComponent {
     }
 
     render() {
-        console.log('this.state', this.state)
         const { navigation } = this.props;
         return (
             <LinearGradient

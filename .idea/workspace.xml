@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfb50061-df06-4369-8d26-644471da0071" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/mobile-app/assets/images/s4fe-white-bg.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile-app/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/GoogleService-Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/GoogleService-Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/PrivacyPolicy.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/PrivacyPolicy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/PhoneVerificationCode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupEmail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPassword.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPrivacy.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/SignUp/SignupPrivacy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/screens/TermsAndContitions.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/screens/TermsAndContitions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile-app/utils/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/mobile-app/utils/axios.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +125,7 @@
       <workItem from="1583305766687" duration="1155000" />
       <workItem from="1583331449423" duration="434000" />
       <workItem from="1583307041667" duration="20869000" />
+      <workItem from="1583763954430" duration="3102000" />
     </task>
     <servers />
   </component>
@@ -210,19 +216,19 @@
     </state>
     <state x="2739" y="27" width="660" height="1017" key="dock-window-1/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582285086656" />
     <state x="2095" y="0" width="766" height="1045" key="dock-window-1/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583323411490" />
-    <state x="2576" y="267" width="884" height="627" key="find.popup" timestamp="1583333159006">
+    <state x="2576" y="267" width="884" height="627" key="find.popup" timestamp="1583766809276">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="875" y="373" width="1003" height="822" key="find.popup/0.23.2560.1417@0.23.2560.1417" timestamp="1583051355508" />
     <state x="2576" y="267" width="752" height="626" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582638141501" />
     <state x="702" y="287" width="724" height="610" key="find.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582193005175" />
     <state x="656" y="257" width="607" height="526" key="find.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582022379928" />
-    <state x="2576" y="267" width="884" height="627" key="find.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583333159006" />
+    <state x="2576" y="267" width="884" height="627" key="find.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583766809276" />
     <state x="2544" y="245" key="run.anything.popup" timestamp="1583323363923">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2544" y="245" key="run.anything.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583323363923" />
-    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup" timestamp="1583332150732">
+    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup" timestamp="1583767017583">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="545" y="219" width="672" height="660" key="search.everywhere.popup/0.0.1680.1010@0.0.1680.1010" timestamp="1582834501461" />
@@ -230,6 +236,6 @@
     <state x="2543" y="234" width="698" height="705" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@1920.0.1920.1080" timestamp="1582639396258" />
     <state x="670" y="255" width="672" height="687" key="search.everywhere.popup/1920.0.1920.1080/70.27.1850.1053/3840.0.1920.1080@70.27.1850.1053" timestamp="1582205478523" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.95.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1582021948833" />
-    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583332150732" />
+    <state x="2543" y="234" width="768" height="706" key="search.everywhere.popup/3840.0.1920.1080/70.27.1850.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1583767017583" />
   </component>
 </project>

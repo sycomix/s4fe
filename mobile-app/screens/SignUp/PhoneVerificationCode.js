@@ -5,6 +5,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { materialTheme } from '../../constants/';
 import { HeaderHeight } from "../../constants/utils";
 import ValidationComponent from 'react-native-form-validator';
+import {Axios} from "../../utils/axios";
+import {API} from "../../utils/api";
 
 const { height, width } = Dimensions.get('window');
 
@@ -13,7 +15,7 @@ export default class PhoneNumber extends ValidationComponent {
         super(props);
         this.state = {
             phoneNumber: 0,
-            verificationCode: 0,
+            verificationCode: '',
             firstCode: '',
             secondCode: '',
             thirdCode: '',
@@ -29,12 +31,36 @@ export default class PhoneNumber extends ValidationComponent {
         console.log('state', typeof this.state.verificationCode)
     }
 
+    sendOTP() {
+        const formData = {
+            otp: this.state.verificationCode
+        }
+        Axios.post(API.REGISTRATION, formData)
+            .then(() => {
+                console.log('success')
+            })
+            .catch(e => {
+                console.log(e)
+                console.log(e.response)
+                const error = e.response
+                if (error.status === 500) {
+                    Alert.alert('Error!', 'Make sure that you have entered the correct code.')
+                } else {
+                    console.log('go to next screen')
+                    // this.props.navigation.navigate('SignupEmail', {
+                    //     phoneVerificationData: this.state
+                    // })
+                }
+            })
+    }
+
     handleNext() {
         const isValid =  this.validate({
             phoneNumber: {required: true},
             verificationCode: {required: true},
         });
         if (isValid) {
+            // this.sendOTP()
             this.props.navigation.navigate('SignupEmail', {
                 phoneVerificationData: this.state
             })
@@ -93,7 +119,7 @@ export default class PhoneNumber extends ValidationComponent {
                                     color={materialTheme.COLORS.WHITE}
                                     onPress={() => this.handleNext()}
                                 >
-                                    <Text>SUBMIT</Text>
+                                    <Text>NEXT</Text>
                                 </Button>
 
                                 <Block style={{marginTop: 20}}>

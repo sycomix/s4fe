@@ -1,150 +1,69 @@
 import React from 'react';
-import { Alert, Dimensions, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-
-import { Block, Button, Input, Text, theme } from 'galio-framework';
-
+import {Dimensions, ScrollView, StyleSheet} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { materialTheme } from '../constants/';
-import { HeaderHeight } from "../constants/utils";
+import { Block, Button, Text, theme } from 'galio-framework';
+import materialTheme from '../constants/Theme';
 
 const { height, width } = Dimensions.get('window');
 
-export default class PrivacyPolicy extends React.Component {
-    state = {
-        user: '-',
-        email: '-',
-        password: '-',
-        active: {
-            user: false,
-            email: false,
-            password: false,
-        }
-    }
-
-    handleChange = (name, value) => {
-        this.setState({ [name]: value });
-    }
-
-    toggleActive = (name) => {
-        const { active } = this.state;
-        active[name] = !active[name];
-
-        this.setState({ active });
-    }
-
+export default class Privacy extends React.Component {
     render() {
-        const { navigation } = this.props;
         return (
-            <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0.25, y: 1.1 }}
-                locations={[0.2, 1]}
-                colors={['#EBA721', '#EBA721']}
-                style={[styles.signup, { flex: 1, paddingTop: theme.SIZES.BASE * 4 }]}>
-                <Block flex middle>
-                    <KeyboardAvoidingView behavior="padding" enabled>
-                        <Block style={{ marginTop: height * 0.2 }}>
-                            <Block row center space="between">
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 30,
-                                    letterSpacing: 1,
-                                    padding: 20
-                                }}>
-                                    Privacy
-                                </Text>
-                            </Block>
-                            <Block row space="between">
-                                <Text style={{
-                                    color: 'white',
-                                    fontSize: 20,
-                                    padding: 20
-                                }}>
-                                    To learn more see our Tearms of use and Privacy Policy
-                                </Text>
+            <Block flex style={{marginTop: height * 0.1}}>
+                <ScrollView
+                    overScrollMode='always'
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.privacy}
+                >
+                    <Text size={16}>
+                        In recent months, Facebook, Google, IBM, Microsoft and others have aggressively lobbied officials in the Trump administration and elsewhere to start outlining a federal privacy law, according to administration officials and the companies. The law would have a dual purpose, they said: It would overrule the California law and instead put into place a kinder set of rules that would give the companies wide leeway over how personal digital information was handled.
+                    </Text>
+                    <Text size={16} color='rgba(0, 0, 0, 0.5)' style={{ paddingTop: 9 }}>
+                        “We are committed to being part of the process and a constructive part of the process,” said Dean Garfield, president of a leading tech industry lobbying group, the Information Technology Industry Council, which is working on proposals for the federal law. “The best way is to work toward developing our own blueprint.”
+                    </Text>
+                    <Text size={16} color='rgba(0, 0, 0, 0.5)' style={{ paddingTop: 9 }}>
+                        The efforts could set up a big fight with consumer and privacy groups, especially as companies like Facebook face scrutiny for mishandling users’ personal data. Many of the internet companies depend on the collection and analysis of such data to help them target the online ads that generate the bulk of their revenue.
+                    </Text>
 
-                            </Block>
-                            <Block row space="between">
-                                <Text
-                                    onPress={() => {
-                                        alert('test')
-                                    }}
-                                    style={{
-                                        color: materialTheme.COLORS.BLUE_LIGHT,
-                                        fontSize: 20,
-                                        paddingLeft: 20,
-                                        paddingRight: 20,
-                                    }}>Terms of use
-                                </Text>
-                            </Block>
-                            <Block row space="between">
-                                <Text style={{
-                                    color: materialTheme.COLORS.BLUE_LIGHT,
-                                    fontSize: 20,
-                                    paddingLeft: 20,
-                                    paddingRight: 20,
-                                }}>
-                                    Privacy Policy
-                                </Text>
-                            </Block>
-
-                        </Block>
-
-
-                        <Block flex={1} style={{ marginTop: height * 0.05 }}  space="between">
-                            <Block  center style={styles.bottom}>
-                                <Button
-                                    shadowless
-                                    style={styles.button}
-                                    color={materialTheme.COLORS.WHITE}
-                                    onPress={() => navigation.navigate('SignupPrivacy')}
-                                >
-                                    <Text>NEXT</Text>
-                                </Button>
-
-                            </Block>
-                        </Block>
-                    </KeyboardAvoidingView>
-                </Block>
-            </LinearGradient>
+                    <Text size={16} color='rgba(0, 0, 0, 0.5)' style={{ paddingTop: 9 }}>
+                        At a board meeting for the Information Technology Industry Council in May, Joel Kaplan, Facebook’s top lobbyist, warned that an early proposal for privacy in California posed a threat to the industry and that the trade group needed to make the issue of privacy a priority, according to two people briefed on the meeting, who were not authorized to speak publicly.
+                    </Text>
+                </ScrollView>
+                <LinearGradient colors={['rgba(255,255,255,0)', 'rgba(255,255,255,1)']} style={styles.gradient} />
+            </Block>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    signup: {
-        marginTop: Platform.OS === 'android' ? -HeaderHeight : 0,
+    privacy: {
+        padding: theme.SIZES.BASE,
+        paddingBottom: theme.SIZES.BASE * 5,
     },
-    social: {
-        width: theme.SIZES.BASE * 3.5,
-        height: theme.SIZES.BASE * 3.5,
-        borderRadius: theme.SIZES.BASE * 1.75,
-        justifyContent: 'center',
-        shadowColor: 'rgba(0, 0, 0, 0.3)',
-        shadowOffset: {
-            width: 0,
-            height: 4
-        },
+    buttonsWrapper: {
+        zIndex: 2,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        paddingHorizontal: theme.SIZES.BASE,
+        paddingVertical: theme.SIZES.BASE * 1.75,
+    },
+    privacyButton: {
+        width: '48%',
+        height: theme.SIZES.BASE * 3,
+        alignItems: 'center',
+        shadowColor: "rgba(0, 0, 0, 0.2)",
+        shadowOffset: { width: 0, height: 4 },
         shadowRadius: 8,
         shadowOpacity: 1
     },
-    input: {
-        width: width * 0.9,
-        borderRadius: 0,
-        borderBottomWidth: 1,
-        borderBottomColor: materialTheme.COLORS.PLACEHOLDER,
-    },
-    inputActive: {
-        borderBottomColor: "white",
-    },
-    button: {
+    gradient: {
+        zIndex: 1,
         position: 'absolute',
-        bottom: 0
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: '30%',
     },
-    bottom: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 36
-    }
 });
-

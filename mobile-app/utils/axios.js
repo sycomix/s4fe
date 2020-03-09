@@ -29,11 +29,23 @@ Axios.interceptors.response.use(
         console.log('error axios', error.response);
         if (error.response.status === 401) {
             console.log('401 je');
-            AsyncStorage.clear();
+            logout()
             // NavigationService.navigate('Login');
         }
         return Promise.reject(error);
     },
 );
 
+const logout = async () => {
+    console.log('logout')
+    try {
+        await AsyncStorage.multiRemove(['tokenData', 'userData'])
+            .then(() => {
+                // this.props.navigation.navigate('PhoneNumber')
+            });
+    } catch (e) {
+        // Error saving data
+        console.log('logout', e)
+    }
+};
 export {Axios};
