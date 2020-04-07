@@ -182,9 +182,8 @@ export default class PhoneNumber extends ValidationComponent {
     render() {
         const { navigation } = this.props;
         const placeholder = {
-            label: 'Select country...',
+            label: 'Select a country...',
             value: null,
-            color: '#cacaca'
         };
 
         return (
@@ -201,19 +200,20 @@ export default class PhoneNumber extends ValidationComponent {
                                 color: 'white',
                                 fontSize: 35,
                                 fontWeight: 'bold',
-                                padding: 20
+                                padding: 20,
+                                textAlign: 'center'
                             }}>
-                                Start Using S4FE
+                               Protect your items using S4FE
                             </Text>
                         </Block>
-                        <Block row center space="between">
-                            <Text style={{
-                                color: 'white',
-                                fontSize: 22,
-                            }}>
-                                Enter  your phone number
-                            </Text>
-                        </Block>
+                        {/*<Block row center space="between">*/}
+                        {/*    <Text style={{*/}
+                        {/*        color: 'white',*/}
+                        {/*        fontSize: 22,*/}
+                        {/*    }}>*/}
+                        {/*        Enter  your phone number*/}
+                        {/*    </Text>*/}
+                        {/*</Block>*/}
                     </Block>
 
 
@@ -223,6 +223,7 @@ export default class PhoneNumber extends ValidationComponent {
                             <Block style={[styles.countryInput]}>
                                 <RNPickerSelect
                                     placeholder={placeholder}
+                                    placeholderTextColor='white'
                                     style={pickerSelectStyles}
                                     onValueChange={this.handleCountrySelect}
                                     items={this.state.countriesList}
@@ -241,6 +242,7 @@ export default class PhoneNumber extends ValidationComponent {
                                 autoCapitalize="none"
                                 style={[styles.phoneInput]}
                                 onChangeText={text => this.handleChange(text)}
+                                returnKeyType='done'
                             />
                         </Block>
                         <Block left>

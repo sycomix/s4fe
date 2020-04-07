@@ -47,9 +47,9 @@ export default class PhoneNumber extends ValidationComponent {
                     Alert.alert('Error!', 'Make sure that you have entered the correct code.')
                 } else {
                     console.log('go to next screen')
-                    // this.props.navigation.navigate('SignupEmail', {
-                    //     phoneVerificationData: this.state
-                    // })
+                    this.props.navigation.navigate('SignupEmail', {
+                        phoneVerificationData: this.state
+                    })
                 }
             })
     }
